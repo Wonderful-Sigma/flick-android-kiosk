@@ -10,10 +10,10 @@ val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
-
 object Gray {
     val gray900 = Color(0xFF1A1E27)
-    val gray800 = Color(0xFF505866)
+    val gray800 = Color(0xFF353C49)
+    val gray700 = Color(0xFF505866)
     val gray200 = Color(0xFFB1B8C0)
     val gray100 = Color(0xFFDBDEE2)
     val gray50 = Color(0xFFF2F3F4)
