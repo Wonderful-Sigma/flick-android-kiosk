@@ -1,9 +1,9 @@
-package com.staker4wapper.flick_kiosk.Screen.home
+package com.staker4wapper.flick_kiosk.presentation.Screen.home
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,10 +14,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.staker4wapper.flick_kiosk.navigation.Screen
-import com.staker4wapper.flick_kiosk.ui.components.ProductBox
-import com.staker4wapper.flick_kiosk.ui.theme.Gray
-import com.staker4wapper.flick_kiosk.ui.theme.TitleLarge
+import com.staker4wapper.flick_kiosk.presentation.navigation.Screen
+import com.staker4wapper.flick_kiosk.presentation.ui.components.ProductBox
+import com.staker4wapper.flick_kiosk.presentation.ui.theme.Gray
+import com.staker4wapper.flick_kiosk.presentation.ui.theme.TitleLarge
 
 @Composable
 fun HomeScreen(
@@ -31,7 +31,7 @@ fun HomeScreen(
     )
 
     Column(
-        modifier = Modifier.background(Color.White)
+        modifier = Modifier.background(Color.White).fillMaxSize()
     ) {
         Spacer(modifier = Modifier.height(80.dp))
         TitleLarge(

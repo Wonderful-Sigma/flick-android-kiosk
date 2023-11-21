@@ -69,4 +69,9 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     implementation("androidx.navigation:navigation-compose:2.7.5")
+
+    implementation("com.dynamsoft:dynamsoftcameraenhancer:2.3.11@aar")
+    implementation("com.dynamsoft:dynamsoftbarcodereader:9.6.20@aar")
+
+
 }

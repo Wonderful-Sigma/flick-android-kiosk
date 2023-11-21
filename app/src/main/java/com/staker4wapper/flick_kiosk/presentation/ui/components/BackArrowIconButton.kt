@@ -1,4 +1,4 @@
-package com.staker4wapper.flick_kiosk.ui.components
+package com.staker4wapper.flick_kiosk.presentation.ui.components
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -18,6 +18,20 @@ fun BackArrowIconButton(navController: NavController) {
         onClick = {
             navController.popBackStack()
         }) {
+        Icon(
+            modifier = Modifier.size(40.dp),
+            painter = painterResource(id = R.drawable.ic_arrow_left_big),
+            contentDescription = "icArrowLeftBig"
+        )
+    }
+}
+
+@Composable
+fun BackArrowIconButtonForQRView(onClick: () -> Unit) {
+    IconButton(
+        modifier = Modifier.padding(20.dp),
+        onClick = onClick
+    ) {
         Icon(
             modifier = Modifier.size(40.dp),
             painter = painterResource(id = R.drawable.ic_arrow_left_big),

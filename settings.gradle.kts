@@ -10,6 +10,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            setUrl("https://download2.dynamsoft.com/maven/aar")
+        }
     }
 }
 

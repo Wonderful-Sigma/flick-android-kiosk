@@ -1,4 +1,4 @@
-package com.staker4wapper.flick_kiosk.ui.theme
+package com.staker4wapper.flick_kiosk.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build

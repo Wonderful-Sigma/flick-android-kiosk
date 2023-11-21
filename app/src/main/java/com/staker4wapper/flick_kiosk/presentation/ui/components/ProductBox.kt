@@ -1,4 +1,4 @@
-package com.staker4wapper.flick_kiosk.ui.components
+package com.staker4wapper.flick_kiosk.presentation.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -22,9 +22,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.staker4wapper.flick_kiosk.R
-import com.staker4wapper.flick_kiosk.ui.theme.Gray
-import com.staker4wapper.flick_kiosk.ui.theme.SubTitleLarge
-import com.staker4wapper.flick_kiosk.ui.theme.TitleMedium
+import com.staker4wapper.flick_kiosk.presentation.ui.theme.Gray
+import com.staker4wapper.flick_kiosk.presentation.ui.theme.SubTitleLarge
+import com.staker4wapper.flick_kiosk.presentation.ui.theme.TitleMedium
 
 @Composable
 fun ProductBox(
