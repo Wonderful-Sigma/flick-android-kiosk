@@ -92,7 +92,7 @@ fun QRCodeScreen(
                     mBarcodeReader.setTextResultListener { _, _, textResults ->
                         if (textResults.isNotEmpty()) {
                             val result = textResults[0]
-                            // TODO : QR코드 인식이 되었을 때!!!
+                            // TODO : QR코드 인식이 되었을 때
                             qrViewModel.decodingQrCode(result.barcodeText)
                             mBarcodeReader.stopScanning()
                             barcodeTextResult = "인식되었어요! : " + result.barcodeText
@@ -118,14 +118,14 @@ fun QRCodeScreen(
 
         qrViewModel.qrDecodingState.collect {
             if (it.isSuccess) {
-                Toast.makeText(context, "성공했어요!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "잠시만 기다려주세요", Toast.LENGTH_SHORT).show()
                 val sendUserAccount = qrViewModel.sendUserInfo.value!!.id.toInt()
                 qrViewModel.remit(
                     RemitRequest(sendUserAccount, 500, 70)
                 )
             }
             if (it.error.isNotEmpty()) {
-                Toast.makeText(context, "실패했어요.. : " + it.error, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "QR코드 인식에 실패했어요", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -133,10 +133,10 @@ fun QRCodeScreen(
     LaunchedEffect(true) {
         qrViewModel.remitState.collect {
             if (it.isSuccess) {
-                Toast.makeText(context, "송금 성공했어요!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "송금되었어요", Toast.LENGTH_SHORT).show()
             }
             if (it.error.isNotEmpty()) {
-                Toast.makeText(context, "송금 실패했어요.. : " + it.error, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "송금 실패했어요", Toast.LENGTH_SHORT).show()
             }
         }
     }
