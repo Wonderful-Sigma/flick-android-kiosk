@@ -1,14 +1,11 @@
 package com.staker4wapper.flick_kiosk.navigation
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.staker4wapper.flick_kiosk.Screen.HomeScreen
-import com.staker4wapper.flick_kiosk.navigation.Screen
+import com.staker4wapper.flick_kiosk.Screen.home.HomeScreen
+import com.staker4wapper.flick_kiosk.Screen.qrcode.QRCodeScreen
 
 @Composable
 fun NavGraph(
@@ -22,7 +19,7 @@ fun NavGraph(
             HomeScreen(navController = navController)
         }
         composable(route = Screen.QRCode.route){
-//            LoginScreen(navController = navController)
+            QRCodeScreen(navController = navController)
         }
     }
 }

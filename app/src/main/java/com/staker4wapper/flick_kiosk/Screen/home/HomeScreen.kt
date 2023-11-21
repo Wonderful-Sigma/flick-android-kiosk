@@ -1,4 +1,4 @@
-package com.staker4wapper.flick_kiosk.Screen
+package com.staker4wapper.flick_kiosk.Screen.home
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -7,17 +7,15 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.staker4wapper.flick_kiosk.navigation.Screen
 import com.staker4wapper.flick_kiosk.ui.components.ProductBox
-import com.staker4wapper.flick_kiosk.ui.theme.Flick_KioskTheme
 import com.staker4wapper.flick_kiosk.ui.theme.Gray
 import com.staker4wapper.flick_kiosk.ui.theme.TitleLarge
 
@@ -45,7 +43,7 @@ fun HomeScreen(
         LazyColumn {
             items(list.size) {
                 ProductBox(price = list[it].price, name = list[it].name) {
-                    Log.d("HomeScreen", "IS CLICKED!!")
+                    navController.navigate(Screen.QRCode.route)
                 }
             }
         }

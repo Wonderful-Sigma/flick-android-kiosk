@@ -1,4 +1,4 @@
-package com.staker4wapper.flick_kiosk.Screen
+package com.staker4wapper.flick_kiosk.Screen.home
 
 data class Product(
     val image: Int? = null,
