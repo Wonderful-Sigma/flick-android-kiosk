@@ -24,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -47,6 +48,7 @@ import com.dynamsoft.dce.CameraEnhancer
 import com.dynamsoft.dce.DCECameraView
 import com.dynamsoft.dce.EnumCameraPosition
 import com.staker4wapper.flick_kiosk.R
+import com.staker4wapper.flick_kiosk.data.dto.QrDecodingResponse
 import com.staker4wapper.flick_kiosk.data.dto.RemitRequest
 import com.staker4wapper.flick_kiosk.presentation.findActivity
 import com.staker4wapper.flick_kiosk.presentation.ui.components.BackArrowIconButtonForQRView
@@ -117,16 +119,25 @@ fun QRCodeScreen(
         qrViewModel.qrDecodingState.collect {
             if (it.isSuccess) {
                 Toast.makeText(context, "성공했어요!", Toast.LENGTH_SHORT).show()
+                val sendUserAccount = qrViewModel.sendUserInfo.value!!.id.toInt()
+                qrViewModel.remit(
+                    RemitRequest(sendUserAccount, 500, 70)
+                )
             }
             if (it.error.isNotEmpty()) {
                 Toast.makeText(context, "실패했어요.. : " + it.error, Toast.LENGTH_SHORT).show()
             }
         }
-        qrViewModel.sendUserInfo.observe() {
-            val sendUserAccount = qrViewModel.sendUserInfo.value!!.id.toInt()
-            qrViewModel.remit(
-                RemitRequest(sendUserAccount, 10, 1)
-            )
+    }
+
+    LaunchedEffect(true) {
+        qrViewModel.remitState.collect {
+            if (it.isSuccess) {
+                Toast.makeText(context, "송금 성공했어요!", Toast.LENGTH_SHORT).show()
+            }
+            if (it.error.isNotEmpty()) {
+                Toast.makeText(context, "송금 실패했어요.. : " + it.error, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
