@@ -11,11 +11,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,20 +32,27 @@ import com.staker4wapper.flick_kiosk.ui.theme.TitleLarge
 import com.staker4wapper.flick_kiosk.ui.theme.TitleMedium
 
 @Composable
-fun ProductBox(image: Int? = null, price: Int, name: String) {
+fun ProductBox(
+    image: Int? = null,
+    price: Int,
+    name: String,
+    onClick: () -> Unit
+) {
     Row(
         modifier = Modifier
             .padding(horizontal = 13.dp)
             .height(140.dp)
             .fillMaxWidth()
+            .clip(RoundedCornerShape(24.dp))
             .background(Color.White)
-            .clickable { /*TODO*/ },
+            .clickable(onClick = onClick),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(
             modifier = Modifier
                 .padding(start = 32.dp)
                 .size(90.dp)
+                .clip(RoundedCornerShape(20.dp))
                 .background(Gray.gray100),
         )
         Column(
@@ -70,5 +80,7 @@ fun ProductBox(image: Int? = null, price: Int, name: String) {
 @Preview
 @Composable
 fun GreetingPreview() {
-    ProductBox(price = 380, name = "아주 맛있는 코코팜")
+    ProductBox(price = 380, name = "아주 맛있는 코코팜") {
+
+    }
 }

@@ -1,5 +1,6 @@
 package com.staker4wapper.flick_kiosk.Screen
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -12,14 +13,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.staker4wapper.flick_kiosk.ui.components.ProductBox
 import com.staker4wapper.flick_kiosk.ui.theme.Flick_KioskTheme
 import com.staker4wapper.flick_kiosk.ui.theme.Gray
 import com.staker4wapper.flick_kiosk.ui.theme.TitleLarge
 
 @Composable
-fun HomeScreen() {
-
+fun HomeScreen(
+    navController: NavController
+) {
     val list = listOf(
         Product(price = 308, name = "아주 맛있는 코코팜"),
         Product(price = 308, name = "아주 맛있는 코코팜"),
@@ -39,7 +44,9 @@ fun HomeScreen() {
         Spacer(modifier = Modifier.height(40.dp))
         LazyColumn {
             items(list.size) {
-                ProductBox(price = list[it].price, name = list[it].name)
+                ProductBox(price = list[it].price, name = list[it].name) {
+                    Log.d("HomeScreen", "IS CLICKED!!")
+                }
             }
         }
     }
@@ -48,7 +55,6 @@ fun HomeScreen() {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    Flick_KioskTheme {
-        HomeScreen()
-    }
+    val navController = rememberNavController()
+    HomeScreen(navController)
 }
