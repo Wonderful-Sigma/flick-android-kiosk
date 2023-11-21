@@ -8,7 +8,9 @@ import androidx.activity.compose.setContent
 import androidx.navigation.compose.rememberNavController
 import com.staker4wapper.flick_kiosk.presentation.navigation.NavGraph
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.Flick_KioskTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

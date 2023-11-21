@@ -3,6 +3,7 @@ package com.staker4wapper.flick_kiosk.presentation.Screen.qrcode
 import android.Manifest
 import android.content.pm.PackageManager
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -30,11 +31,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import com.dynamsoft.dbr.BarcodeReader
 import com.dynamsoft.dbr.BarcodeReaderException
@@ -42,17 +47,22 @@ import com.dynamsoft.dce.CameraEnhancer
 import com.dynamsoft.dce.DCECameraView
 import com.dynamsoft.dce.EnumCameraPosition
 import com.staker4wapper.flick_kiosk.R
+import com.staker4wapper.flick_kiosk.data.dto.RemitRequest
 import com.staker4wapper.flick_kiosk.presentation.findActivity
 import com.staker4wapper.flick_kiosk.presentation.ui.components.BackArrowIconButtonForQRView
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.Gray
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.SubTitleLarge
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.SubTitleMedium
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.TitleLarge
+import com.staker4wapper.flick_kiosk.presentation.ui.theme.TitleMedium
+import dagger.hilt.android.AndroidEntryPoint
 
 @Composable
 fun QRCodeScreen(
     navController: NavController,
 ) {
+    val qrViewModel: QRViewModel = hiltViewModel()
+
     lateinit var mCameraEnhancer: CameraEnhancer
     val mBarcodeReader = BarcodeReader()
 
@@ -81,7 +91,9 @@ fun QRCodeScreen(
                         if (textResults.isNotEmpty()) {
                             val result = textResults[0]
                             // TODO : QR코드 인식이 되었을 때!!!
-                            barcodeTextResult = result.barcodeFormatString + ": " + result.barcodeText
+                            qrViewModel.decodingQrCode(result.barcodeText)
+                            mBarcodeReader.stopScanning()
+                            barcodeTextResult = "인식되었어요! : " + result.barcodeText
                         }
                     }
                     mBarcodeReader.startScanning()
@@ -93,7 +105,7 @@ fun QRCodeScreen(
         }
     )
 
-    LaunchedEffect(key1 = true){
+    LaunchedEffect(true){
         initLicense()
         try {
             mBarcodeReader.setCameraEnhancer(mCameraEnhancer)
@@ -101,13 +113,29 @@ fun QRCodeScreen(
             e.printStackTrace()
         }
         launcher.launch(Manifest.permission.CAMERA)
-    }
 
+        qrViewModel.qrDecodingState.collect {
+            if (it.isSuccess) {
+                Toast.makeText(context, "성공했어요!", Toast.LENGTH_SHORT).show()
+            }
+            if (it.error.isNotEmpty()) {
+                Toast.makeText(context, "실패했어요.. : " + it.error, Toast.LENGTH_SHORT).show()
+            }
+        }
+        qrViewModel.sendUserInfo.observe() {
+            val sendUserAccount = qrViewModel.sendUserInfo.value!!.id.toInt()
+            qrViewModel.remit(
+                RemitRequest(sendUserAccount, 10, 1)
+            )
+        }
+    }
 
     /* TODO : View */
 
     Column(
-        modifier = Modifier.background(Color.White).fillMaxSize()
+        modifier = Modifier
+            .background(Color.White)
+            .fillMaxSize()
     ) {
         BackArrowIconButtonForQRView {
 //            navController.popBackStack() // TODO : 뒤로가기
@@ -155,7 +183,10 @@ fun QRCodeScreen(
             }
             Spacer(modifier = Modifier.weight(1f))
             Row(
-                modifier = Modifier.clickable { /*TODO*/ }
+                modifier = Modifier.clickable {
+                    mBarcodeReader.startScanning()
+                    barcodeTextResult = ""
+                }
             ) {
                 SubTitleMedium(text = "다시 스캔하기", color = Gray.gray700)
                 Icon(
@@ -176,10 +207,10 @@ data class QRResult(
 )
 @Composable
 fun BarcodeText(text:String) {
-    Text(
+    TitleMedium(
+        modifier = Modifier.padding(30.dp),
         text = text,
-        color = Color.White,
-        fontSize = 20.sp
+        color = Color.White
     )
 }
 
