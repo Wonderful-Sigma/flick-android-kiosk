@@ -1,6 +1,7 @@
 package com.staker4wapper.flick_kiosk.presentation.Screen.qrcode
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.util.Log
 import android.widget.Toast
@@ -58,23 +59,27 @@ import com.staker4wapper.flick_kiosk.presentation.ui.theme.SubTitleMedium
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.TitleLarge
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.TitleMedium
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun QRCodeScreen(
-    navController: NavController,
     productPrice: String,
-    productName: String
+    productName: String,
+    onBackClick: () -> Unit,
 ) {
-//    navController.popBackStack()
-
     val qrViewModel: QRViewModel = hiltViewModel()
     var sendUserAccount = QrDecodingResponse(0, "", "")
     var name: String
 
+    val context = LocalContext.current
+
+    /* --------------------- QR Code ----------------------- */
+
     lateinit var mCameraEnhancer: CameraEnhancer
     val mBarcodeReader = BarcodeReader()
-
-    val context = LocalContext.current
 
     var barcodeTextResult by remember {
         mutableStateOf("")
@@ -120,10 +125,9 @@ fun QRCodeScreen(
             .background(Color.White)
             .fillMaxSize()
     ) {
-//        BackArrowIconButtonForQRView {
-//            navController.popBackStack() // TODO : 뒤로가기
-//        }
-        Spacer(modifier = Modifier.height(80.dp))
+        BackArrowIconButtonForQRView {
+        }
+//        Spacer(modifier = Modifier.height(80.dp))
         TitleLarge(
             modifier = Modifier.padding(start = 45.dp),
             text = "QR코드로 결제해주세요",
@@ -132,7 +136,7 @@ fun QRCodeScreen(
         SubTitleMedium(
             modifier = Modifier.padding(start = 45.dp, top = 12.dp),
             text = "결제 시 학생회 계좌로 돈이 자동으로 들어가져요",
-            color = Gray.gray200
+            color = Gray.gray300
         )
         /* todo QR Code */
         Surface(
@@ -183,6 +187,7 @@ fun QRCodeScreen(
             }
         }
     }
+
 
     /* --------------------- Async ----------------------*/
 

@@ -20,9 +20,9 @@ class HomeViewModel @Inject constructor(
     private val _productList = MutableLiveData<List<ProductResponse>>()
     val productList: LiveData<List<ProductResponse>> = _productList
 
-    fun getAllProducts() = viewModelScope.launch {
+    fun getAllProducts(walletId: Int) = viewModelScope.launch {
         kotlin.runCatching {
-            productRepository.getAllProduct()
+            productRepository.getAllProduct(walletId)
         }.onSuccess {
             Log.d(TAG, "getAllProducts: SUCCESS!! $it")
             _productList.value = it

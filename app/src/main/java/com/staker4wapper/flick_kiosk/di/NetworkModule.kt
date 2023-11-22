@@ -2,7 +2,6 @@ package com.staker4wapper.flick_kiosk.di
 
 import com.staker4wapper.flick_kiosk.data.api.ProductApi
 import com.staker4wapper.flick_kiosk.data.api.QRCodeApi
-import com.staker4wapper.flick_kiosk.presentation.Screen.home.Product
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

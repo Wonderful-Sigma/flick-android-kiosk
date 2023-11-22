@@ -8,7 +8,7 @@ class ProductRepository @Inject constructor(
     private val productApi: ProductApi
 ) {
 
-    suspend fun getAllProduct(): List<ProductResponse> =
-        productApi.getAllProducts()
+    suspend fun getAllProduct(walletId: Int): List<ProductResponse> =
+        productApi.getAllProducts(walletId)
 
 }

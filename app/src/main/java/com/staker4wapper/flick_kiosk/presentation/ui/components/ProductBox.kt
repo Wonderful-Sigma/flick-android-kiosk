@@ -1,5 +1,6 @@
 package com.staker4wapper.flick_kiosk.presentation.ui.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -21,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.staker4wapper.flick_kiosk.R
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.Gray
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.SubTitleLarge
@@ -28,8 +30,8 @@ import com.staker4wapper.flick_kiosk.presentation.ui.theme.TitleMedium
 
 @Composable
 fun ProductBox(
-    image: Int? = null,
-    price: Long,
+    image: String,
+    price: Int,
     name: String,
     onClick: () -> Unit
 ) {
@@ -43,12 +45,21 @@ fun ProductBox(
             .clickable(onClick = onClick),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Box(
+//        Box(
+//            modifier = Modifier
+//                .padding(start = 32.dp)
+//                .size(90.dp)
+//                .clip(RoundedCornerShape(20.dp))
+//                .background(Gray.gray100),
+//        )
+        AsyncImage(
             modifier = Modifier
                 .padding(start = 32.dp)
                 .size(90.dp)
                 .clip(RoundedCornerShape(20.dp))
-                .background(Gray.gray100),
+                .background(Gray.gray50),
+            model = image,
+            contentDescription = "productImage"
         )
         Column(
             modifier = Modifier.padding(start = 30.dp)
@@ -76,7 +87,7 @@ fun ProductBox(
 @Preview
 @Composable
 fun GreetingPreview() {
-    ProductBox(price = 380, name = "아주 맛있는 코코팜") {
+    ProductBox(image = "", price = 380, name = "아주 맛있는 코코팜") {
 
     }
 }
