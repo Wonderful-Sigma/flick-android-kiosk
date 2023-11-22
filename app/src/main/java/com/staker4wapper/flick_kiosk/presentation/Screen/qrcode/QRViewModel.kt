@@ -55,7 +55,6 @@ class QRViewModel @Inject constructor(
         }
     }
 
-
     companion object {
         private const val TAG = "QRViewModel"
     }

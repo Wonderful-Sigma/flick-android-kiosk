@@ -29,7 +29,7 @@ import com.staker4wapper.flick_kiosk.presentation.ui.theme.TitleMedium
 @Composable
 fun ProductBox(
     image: Int? = null,
-    price: Int,
+    price: Long,
     name: String,
     onClick: () -> Unit
 ) {

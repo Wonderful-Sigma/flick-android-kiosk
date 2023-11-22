@@ -62,8 +62,12 @@ import dagger.hilt.android.AndroidEntryPoint
 @Composable
 fun QRCodeScreen(
     navController: NavController,
+    productPrice: String,
+    productName: String
 ) {
     val qrViewModel: QRViewModel = hiltViewModel()
+    var sendUserAccount = QrDecodingResponse(0, "", "")
+    var name: String
 
     lateinit var mCameraEnhancer: CameraEnhancer
     val mBarcodeReader = BarcodeReader()
@@ -95,7 +99,7 @@ fun QRCodeScreen(
                             // TODO : QR코드 인식이 되었을 때
                             qrViewModel.decodingQrCode(result.barcodeText)
                             mBarcodeReader.stopScanning()
-                            barcodeTextResult = "인식되었어요! : " + result.barcodeText
+                            barcodeTextResult = "인식되었어요!"
                         }
                     }
                     mBarcodeReader.startScanning()
@@ -107,41 +111,7 @@ fun QRCodeScreen(
         }
     )
 
-    LaunchedEffect(true){
-        initLicense()
-        try {
-            mBarcodeReader.setCameraEnhancer(mCameraEnhancer)
-        } catch (e: BarcodeReaderException){
-            e.printStackTrace()
-        }
-        launcher.launch(Manifest.permission.CAMERA)
-
-        qrViewModel.qrDecodingState.collect {
-            if (it.isSuccess) {
-                Toast.makeText(context, "잠시만 기다려주세요", Toast.LENGTH_SHORT).show()
-                val sendUserAccount = qrViewModel.sendUserInfo.value!!.id.toInt()
-                qrViewModel.remit(
-                    RemitRequest(sendUserAccount, 500, 70)
-                )
-            }
-            if (it.error.isNotEmpty()) {
-                Toast.makeText(context, "QR코드 인식에 실패했어요", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    LaunchedEffect(true) {
-        qrViewModel.remitState.collect {
-            if (it.isSuccess) {
-                Toast.makeText(context, "송금되었어요", Toast.LENGTH_SHORT).show()
-            }
-            if (it.error.isNotEmpty()) {
-                Toast.makeText(context, "송금 실패했어요", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    /* TODO : View */
+    /* ------------------------- View ----------------------------*/
 
     Column(
         modifier = Modifier
@@ -189,8 +159,8 @@ fun QRCodeScreen(
                 .padding(top = 20.dp)
         ) {
             Column {
-                SubTitleLarge(text = "아주 맛있는 코코팜 (수정)", color = Gray.gray700)
-                TitleLarge(modifier = Modifier.padding(top = 6.dp), text = "308코인 (수정)", color = Gray.gray700)
+                SubTitleLarge(text = productName, color = Gray.gray700)
+                TitleLarge(modifier = Modifier.padding(top = 6.dp), text = productPrice + "코인", color = Gray.gray700)
             }
             Spacer(modifier = Modifier.weight(1f))
             Row(
@@ -207,6 +177,45 @@ fun QRCodeScreen(
                     painter = painterResource(id = R.drawable.ic_reload),
                     contentDescription = "icReload"
                 )
+            }
+        }
+    }
+
+    /* --------------------- Async ----------------------*/
+
+    LaunchedEffect(true){
+        initLicense()
+        try {
+            mBarcodeReader.setCameraEnhancer(mCameraEnhancer)
+        } catch (e: BarcodeReaderException){
+            e.printStackTrace()
+        }
+        launcher.launch(Manifest.permission.CAMERA)
+    }
+
+    LaunchedEffect(true) {
+        qrViewModel.qrDecodingState.collect {
+            if (it.isSuccess) {
+                Toast.makeText(context, "잠시만 기다려주세요", Toast.LENGTH_SHORT).show()
+                sendUserAccount = qrViewModel.sendUserInfo.value!!
+                qrViewModel.remit(
+                    RemitRequest(sendUserAccount.id.toInt(), productPrice.toLong(), 70)
+                )
+            }
+            if (it.error.isNotEmpty()) {
+                Toast.makeText(context, "QR코드 인식에 실패했어요", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    LaunchedEffect(true) {
+        qrViewModel.remitState.collect {
+            if (it.isSuccess) {
+                name = sendUserAccount.name.slice(0 until sendUserAccount.name.indexOf("의"))
+                Toast.makeText(context, "${name}님, 송금되었어요!", Toast.LENGTH_SHORT).show()
+            }
+            if (it.error.isNotEmpty()) {
+                Toast.makeText(context, "송금 실패했어요", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -235,4 +244,7 @@ private fun initLicense(){
             Log.d("DBR","license initialized")
         }
     }
+}
+
+fun d() {
 }

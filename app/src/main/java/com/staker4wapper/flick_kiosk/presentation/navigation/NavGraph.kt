@@ -18,8 +18,13 @@ fun NavGraph(
         composable(route = Screen.Home.route) {
             HomeScreen(navController = navController)
         }
-        composable(route = Screen.QRCode.route){
-            QRCodeScreen(navController = navController)
+        composable(route = Screen.QRCode.route){ backStackEntry ->
+            val productPrice = backStackEntry.arguments?.getString("price")
+            val productName = backStackEntry.arguments?.getString("name")
+
+            if (productPrice != null && productName != null) {
+                QRCodeScreen(navController = navController, productPrice, productName)
+            }
         }
     }
 }
