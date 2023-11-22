@@ -1,4 +1,11 @@
 package com.staker4wapper.flick_kiosk.data.api
 
-class ProductApi {
+import com.staker4wapper.flick_kiosk.data.dto.ProductResponse
+import retrofit2.http.PATCH
+
+interface ProductApi {
+
+    @PATCH("/api/goods/searchAll/{walletId}")
+    suspend fun getAllProducts(): List<ProductResponse>
+
 }

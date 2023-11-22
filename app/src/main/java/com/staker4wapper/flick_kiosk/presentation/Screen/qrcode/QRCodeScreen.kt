@@ -65,6 +65,8 @@ fun QRCodeScreen(
     productPrice: String,
     productName: String
 ) {
+//    navController.popBackStack()
+
     val qrViewModel: QRViewModel = hiltViewModel()
     var sendUserAccount = QrDecodingResponse(0, "", "")
     var name: String
@@ -118,9 +120,10 @@ fun QRCodeScreen(
             .background(Color.White)
             .fillMaxSize()
     ) {
-        BackArrowIconButtonForQRView {
+//        BackArrowIconButtonForQRView {
 //            navController.popBackStack() // TODO : 뒤로가기
-        }
+//        }
+        Spacer(modifier = Modifier.height(80.dp))
         TitleLarge(
             modifier = Modifier.padding(start = 45.dp),
             text = "QR코드로 결제해주세요",

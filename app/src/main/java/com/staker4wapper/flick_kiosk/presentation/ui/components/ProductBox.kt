@@ -66,7 +66,8 @@ fun ProductBox(
             onClick = { /*TODO*/ }) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_arrow_right_mini),
-                contentDescription = "icArrowRightMini"
+                contentDescription = "icArrowRightMini",
+                tint = Gray.gray200
             )
         }
     }
