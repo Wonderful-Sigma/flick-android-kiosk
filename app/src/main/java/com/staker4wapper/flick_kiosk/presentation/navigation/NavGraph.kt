@@ -26,7 +26,6 @@ fun NavGraph(
         }
         composable(
             route = Screen.QRCode.route,
-            /* Todo : 수정 */
             enterTransition = {
                 when (initialState.destination.route) {
                     Screen.Home.route ->
@@ -54,9 +53,7 @@ fun NavGraph(
             val productName = backStackEntry.arguments?.getString("name")
 
             if (productPrice != null && productName != null) {
-                QRCodeScreen(productPrice, productName) {
-
-                }
+                QRCodeScreen(navController, productPrice, productName)
             }
         }
     }
