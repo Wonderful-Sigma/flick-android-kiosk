@@ -47,8 +47,16 @@ class QRViewModel @Inject constructor(
         kotlin.runCatching {
             qrCodeRepository.remit(remitRequest)
         }.onSuccess {
-            Log.d(TAG, "remit: SUCCESS!! $it")
-            _remitState.emit(RemitState(isSuccess = true))
+            when(it.status) {
+                200 -> {
+                    Log.d(TAG, "remit: SUCCESS!! $it")
+                    _remitState.emit(RemitState(isSuccess = true))
+                }
+                400 -> {
+                    Log.d(TAG, "remit: FAILED.. ${it.message}")
+                    _remitState.emit(RemitState(error = it.message))
+                }
+            }
         }.onFailure { e ->
             Log.d(TAG, "remit: FAILED.. $e")
             _remitState.emit(RemitState(error = "$e"))

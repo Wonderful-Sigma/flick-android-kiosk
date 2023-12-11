@@ -1,5 +1,4 @@
 package com.staker4wapper.flick_kiosk.di
 
-const val BASE_URL = "http://39.116.14.193:8080/"
-//const val BASE_URL = "http://10.80.163.69:8080/" /* 범준이꺼 */
+const val BASE_URL = "http://1.246.8.179:8000"
 const val ACCESS_TOKEN = "eyJKV1QiOiJBQ0NFU1NfVE9LRU4iLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODM3ZTJkYS03MzJjLTQxZjktYTNiOC04ZGY2ZjQ2MTA2YWUiLCJydWxlIjoiQURNSU4iLCJpYXQiOjE3MDA1NzUyMzQsImV4cCI6MjY0NzM0NjQzM30.TwxRTR-iTdfEeP9C-7iO2Ea_NZBBT4Lj_131JjISxcFZYWrtUZPyH4Ry474oooCxetnUSSFl2v7vRdSm-Wl5GA"

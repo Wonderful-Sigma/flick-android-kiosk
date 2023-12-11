@@ -29,9 +29,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.google.common.util.concurrent.ListenableFuture
 import com.staker4wapper.flick_kiosk.data.dto.QrDecodingResponse
 import com.staker4wapper.flick_kiosk.data.dto.RemitRequest
+import kotlinx.coroutines.delay
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -41,11 +43,13 @@ import java.util.concurrent.Executors
 fun CameraView(
     productPrice: Long,
     qrViewModel: QRViewModel = hiltViewModel(),
+    navController: NavController
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     var preview by remember { mutableStateOf<Preview?>(null) }
     val barCodeVal = remember { mutableStateOf("") }
+    lateinit var cameraProvider: ProcessCameraProvider
 
     Surface(
         modifier = Modifier.run {
@@ -81,7 +85,7 @@ fun CameraView(
                     preview = Preview.Builder().build().also {
                         it.setSurfaceProvider(previewView.surfaceProvider)
                     }
-                    val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
+                    cameraProvider = cameraProviderFuture.get()
                     val barcodeAnalyser = BarCodeAnalyser { barcodes ->
                         barcodes.forEach { barcode ->
                             barcode.rawValue.let { barcodeValue ->
@@ -91,7 +95,7 @@ fun CameraView(
                                 /*--------------TODO------------*/
 //                                Toast.makeText(context, "", Toast.LENGTH_SHORT).show()
                                 qrViewModel.decodingQrCode(barcodeValue.toString())
-                                cameraProvider.shutdown()
+//                                cameraProvider.shutdown()
                             }
                         }
                     }
@@ -141,9 +145,12 @@ fun CameraView(
             if (it.isSuccess) {
                 userName = sendUserAccount.name.slice(0 until sendUserAccount.name.indexOf("의"))
                 Toast.makeText(context, "${userName}님, 송금되었어요!", Toast.LENGTH_SHORT).show()
+                cameraProvider.shutdown()
+                delay(3000)
+                navController.popBackStack()
             }
             if (it.error.isNotEmpty()) {
-                Toast.makeText(context, "송금 실패했어요", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
             }
         }
     }

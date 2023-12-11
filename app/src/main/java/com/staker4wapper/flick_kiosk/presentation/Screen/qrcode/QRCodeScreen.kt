@@ -28,7 +28,6 @@ import com.staker4wapper.flick_kiosk.presentation.ui.theme.SubTitleMedium
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.TitleLarge
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.TitleMedium
 
-
 @Composable
 fun QRCodeScreen(
     navController: NavController,
@@ -56,7 +55,7 @@ fun QRCodeScreen(
             text = "결제 시 학생회 계좌로 돈이 자동으로 들어가져요",
             color = Gray.gray300
         )
-        CameraView(productPrice.toLong())
+        CameraView(productPrice.toLong(), navController = navController)
         Row(
             modifier = Modifier
                 .padding(horizontal = 45.dp)
@@ -71,20 +70,20 @@ fun QRCodeScreen(
                 )
             }
             Spacer(modifier = Modifier.weight(1f))
-            Row(
-                modifier = Modifier.clickable {
-                    Toast.makeText(context, "지금은 없는 기능이에요..", Toast.LENGTH_SHORT).show()
-                }
-            ) {
-                SubTitleMedium(text = "다시 스캔하기", color = Gray.gray700)
-                Icon(
-                    modifier = Modifier
-                        .padding(start = 8.dp)
-                        .size(30.dp),
-                    painter = painterResource(id = R.drawable.ic_reload),
-                    contentDescription = "icReload"
-                )
-            }
+//            Row(
+//                modifier = Modifier.clickable {
+//                    Toast.makeText(context, "지금은 없는 기능이에요..", Toast.LENGTH_SHORT).show()
+//                }
+//            ) {
+//                SubTitleMedium(text = "다시 스캔하기", color = Gray.gray700)
+//                Icon(
+//                    modifier = Modifier
+//                        .padding(start = 8.dp)
+//                        .size(30.dp),
+//                    painter = painterResource(id = R.drawable.ic_reload),
+//                    contentDescription = "icReload"
+//                )
+//            }
         }
     }
 }
