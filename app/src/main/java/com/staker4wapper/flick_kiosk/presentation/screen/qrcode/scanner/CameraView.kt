@@ -96,9 +96,7 @@ fun CameraView(
                                     barCodeVal.value = barcodeValue
                                 }
                                 /*--------------TODO------------*/
-//                                Toast.makeText(context, "", Toast.LENGTH_SHORT).show()
                                 qrViewModel.decodingQrCode(barcodeValue.toString())
-//                                cameraProvider.shutdown()
                             }
                         }
                     }
@@ -125,54 +123,20 @@ fun CameraView(
         )
     }
 
-    lateinit var sendUserAccount: QrDecodingResponse
-    var userName: String
-
     LaunchedEffect(true) {
         qrViewModel.qrDecodingState.collect {
             if (it.isSuccess) {
                 cameraProvider.shutdown()
-//                Toast.makeText(context, "잠시만 기다려주세요", Toast.LENGTH_SHORT).show()
-
                 navController.navigate(
-                    Screen.Success.route
+                    Screen.Load.route
                         .replace(
                             oldValue = "{price}",
                             newValue =  productPrice.toString()
                         )
                 )
-
-
-//                sendUserAccount = qrViewModel.sendUserInfo.value!!
-//                qrViewModel.remit(
-//                    RemitRequest(sendUserAccount.id.toInt(), productPrice, 185)
-//                )
             }
             if (it.error.isNotEmpty()) {
                 Toast.makeText(context, "QR코드를 다시 생성해주세요", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    LaunchedEffect(true) {
-        qrViewModel.remitState.collect {
-            if (it.isSuccess) {
-                /*TODO*/
-//                navController.navigate(
-//                    Screen.Success.route
-//                        .replace(
-//                            oldValue = "{price}",
-//                            newValue =  productPrice.toString()
-//                        )
-//                )
-            }
-            if (it.error.isNotEmpty()) {
-                navController.navigate(Screen.Failed.route) {
-                    popUpTo(navController.graph.id) {
-                        inclusive = true
-                    }
-                }
-//                Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
             }
         }
     }

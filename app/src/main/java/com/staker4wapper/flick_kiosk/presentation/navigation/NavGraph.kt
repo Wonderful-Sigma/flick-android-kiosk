@@ -10,6 +10,7 @@ import com.staker4wapper.flick_kiosk.presentation.screen.home.HomeScreen
 import com.staker4wapper.flick_kiosk.presentation.screen.home.HomeViewModel
 import com.staker4wapper.flick_kiosk.presentation.screen.qrcode.QRCodeScreen
 import com.staker4wapper.flick_kiosk.presentation.screen.result.FailedScreen
+import com.staker4wapper.flick_kiosk.presentation.screen.result.LoadScreen
 import com.staker4wapper.flick_kiosk.presentation.screen.result.SuccessScreen
 
 @Composable
@@ -57,7 +58,7 @@ fun NavGraph(
             }
         }
         composable(
-            route = Screen.Success.route,
+            route = Screen.Load.route,
             enterTransition = {
                 when (initialState.destination.route) {
                     Screen.QRCode.route ->
@@ -84,32 +85,21 @@ fun NavGraph(
             val productPrice = backStackEntry.arguments?.getString("price")
 
             if (productPrice != null) {
+                LoadScreen(navController, productPrice)
+            }
+        }
+        composable(
+            route = Screen.Success.route,
+            /* ------------------- */
+        ) { backStackEntry ->
+            val productPrice = backStackEntry.arguments?.getString("price")
+
+            if (productPrice != null) {
                 SuccessScreen(navController, productPrice)
             }
         }
         composable(
             route = Screen.Failed.route,
-            enterTransition = {
-                when (initialState.destination.route) {
-                    Screen.QRCode.route ->
-                        slideIntoContainer(
-                            AnimatedContentTransitionScope.SlideDirection.Left,
-                            animationSpec = tween(500)
-                        )
-                    else -> null
-                }
-            },
-            popExitTransition = {
-                when (targetState.destination.route) {
-                    Screen.QRCode.route ->
-                        slideOutOfContainer(
-                            AnimatedContentTransitionScope.SlideDirection.Right,
-                            animationSpec = tween(500)
-                        )
-
-                    else -> null
-                }
-            }
             /* ------------------- */
         ) {
             FailedScreen(navController = navController)
