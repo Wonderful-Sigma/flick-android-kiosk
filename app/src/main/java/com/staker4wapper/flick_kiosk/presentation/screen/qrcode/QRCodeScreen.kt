@@ -1,5 +1,6 @@
 package com.staker4wapper.flick_kiosk.presentation.screen.qrcode
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -48,5 +49,9 @@ fun QRCodeScreen(
         )
         Spacer(modifier = Modifier.weight(1f))
         FlickIcon()
+    }
+
+    BackHandler {
+        navController.popBackStack()
     }
 }

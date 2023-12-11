@@ -127,6 +127,7 @@ fun CameraView(
         qrViewModel.qrDecodingState.collect {
             if (it.isSuccess) {
                 cameraProvider.shutdown()
+                Toast.makeText(context, "잠시만 기다려주세요", Toast.LENGTH_SHORT).show()
                 val sendUserAccount = qrViewModel.sendUserInfo.value!!
                 qrViewModel.remit(
                     RemitRequest(sendUserAccount.id.toInt(), productPrice, 185)
