@@ -105,4 +105,6 @@ dependencies {
 
     //Camera Permission
     implementation ("com.google.accompanist:accompanist-permissions:0.19.0")
+
+    implementation("io.woong.compose.grid:grid:1.0.0")
 }

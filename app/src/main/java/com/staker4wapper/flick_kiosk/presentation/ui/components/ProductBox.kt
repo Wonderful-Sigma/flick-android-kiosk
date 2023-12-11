@@ -7,10 +7,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -45,7 +47,7 @@ fun ProductBox(
         AsyncImage(
             modifier = Modifier
                 .padding(top = 12.dp, start = 12.dp, end = 12.dp)
-                .size(200.dp)
+                .fillMaxSize()
                 .clip(RoundedCornerShape(30.dp))
                 .background(Gray.gray50),
             model = image,

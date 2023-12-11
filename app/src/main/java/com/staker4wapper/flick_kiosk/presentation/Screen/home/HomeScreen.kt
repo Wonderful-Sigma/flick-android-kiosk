@@ -4,12 +4,16 @@ import android.app.Activity
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.staggeredgrid.LazyHorizontalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
@@ -34,8 +38,12 @@ import com.staker4wapper.flick_kiosk.data.dto.ProductResponse
 import com.staker4wapper.flick_kiosk.presentation.Screen.qrcode.QRViewModel
 import com.staker4wapper.flick_kiosk.presentation.navigation.Screen
 import com.staker4wapper.flick_kiosk.presentation.ui.components.ProductBox
+import com.staker4wapper.flick_kiosk.presentation.ui.components.ProductList
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.Gray
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.TitleLarge
+import com.staker4wapper.flick_kiosk.presentation.ui.theme.TitleSmall
+import io.woong.compose.grid.SimpleGridCells
+import io.woong.compose.grid.VerticalGrid
 
 @Composable
 fun HomeScreen(
@@ -44,6 +52,7 @@ fun HomeScreen(
 ) {
     val productList = homeViewModel.productList.observeAsState()
     val scrollState = rememberScrollState()
+
     Column(
         modifier = Modifier
             .background(Color.White)
@@ -56,35 +65,16 @@ fun HomeScreen(
             text = "구매할 상품을 선택해주세요",
             color = Gray.gray900
         )
-        Spacer(modifier = Modifier.height(40.dp))
+        TitleSmall(
+            modifier = Modifier.padding(top = 60.dp, start = 45.dp),
+            text = "간식",
+            color = Gray.gray700
+        )
+        Spacer(modifier = Modifier.height(30.dp))
         productList.value?.let {
             ProductList(navController = navController, productList = it)
         }
         Spacer(modifier = Modifier.height(80.dp))
-    }
-}
-
-@Composable
-fun ProductList(navController: NavController, productList: List<ProductResponse>) {
-    productList.forEach { product ->
-        ProductBox(
-            image = product.imageUrl,
-            price =  product.value,
-            name = product.name
-        ) {
-            navController.navigate(
-                Screen.QRCode.route
-                    .replace(
-                        oldValue = "{price}",
-                        newValue =  product.value.toString()
-                    )
-                    .replace(
-                        oldValue = "{name}",
-                        newValue = product.name
-                    )
-            )
-        }
-        Spacer(modifier = Modifier.height(12.dp))
     }
 }
 
