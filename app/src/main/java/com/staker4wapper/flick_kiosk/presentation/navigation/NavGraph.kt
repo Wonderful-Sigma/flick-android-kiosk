@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import com.staker4wapper.flick_kiosk.presentation.screen.home.HomeScreen
 import com.staker4wapper.flick_kiosk.presentation.screen.home.HomeViewModel
 import com.staker4wapper.flick_kiosk.presentation.screen.qrcode.QRCodeScreen
+import com.staker4wapper.flick_kiosk.presentation.screen.result.FailedScreen
 import com.staker4wapper.flick_kiosk.presentation.screen.result.SuccessScreen
 
 @Composable
@@ -61,6 +62,9 @@ fun NavGraph(
             if (productPrice != null) {
                 SuccessScreen(navController, productPrice)
             }
+        }
+        composable(route = Screen.Failed.route) {
+            FailedScreen(navController = navController)
         }
     }
 }
