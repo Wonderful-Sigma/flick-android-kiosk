@@ -56,14 +56,62 @@ fun NavGraph(
                 QRCodeScreen(navController, productPrice, productName)
             }
         }
-        composable(route = Screen.Success.route) { backStackEntry ->
+        composable(
+            route = Screen.Success.route,
+            enterTransition = {
+                when (initialState.destination.route) {
+                    Screen.QRCode.route ->
+                        slideIntoContainer(
+                            AnimatedContentTransitionScope.SlideDirection.Left,
+                            animationSpec = tween(500)
+                        )
+                    else -> null
+                }
+            },
+            popExitTransition = {
+                when (targetState.destination.route) {
+                    Screen.QRCode.route ->
+                        slideOutOfContainer(
+                            AnimatedContentTransitionScope.SlideDirection.Right,
+                            animationSpec = tween(500)
+                        )
+
+                    else -> null
+                }
+            }
+            /* ------------------- */
+        ) { backStackEntry ->
             val productPrice = backStackEntry.arguments?.getString("price")
 
             if (productPrice != null) {
                 SuccessScreen(navController, productPrice)
             }
         }
-        composable(route = Screen.Failed.route) {
+        composable(
+            route = Screen.Failed.route,
+            enterTransition = {
+                when (initialState.destination.route) {
+                    Screen.QRCode.route ->
+                        slideIntoContainer(
+                            AnimatedContentTransitionScope.SlideDirection.Left,
+                            animationSpec = tween(500)
+                        )
+                    else -> null
+                }
+            },
+            popExitTransition = {
+                when (targetState.destination.route) {
+                    Screen.QRCode.route ->
+                        slideOutOfContainer(
+                            AnimatedContentTransitionScope.SlideDirection.Right,
+                            animationSpec = tween(500)
+                        )
+
+                    else -> null
+                }
+            }
+            /* ------------------- */
+        ) {
             FailedScreen(navController = navController)
         }
     }

@@ -59,7 +59,7 @@ fun CameraView(
                 .fillMaxWidth()
                 .height(600.dp)
                 .padding(top = 40.dp)
-                .padding(horizontal = 120.dp)
+                .padding(horizontal = 100.dp)
                 .clip(RoundedCornerShape(20.dp))
         },
         color = Color.White
@@ -131,11 +131,22 @@ fun CameraView(
     LaunchedEffect(true) {
         qrViewModel.qrDecodingState.collect {
             if (it.isSuccess) {
-                Toast.makeText(context, "잠시만 기다려주세요", Toast.LENGTH_SHORT).show()
-                sendUserAccount = qrViewModel.sendUserInfo.value!!
-                qrViewModel.remit(
-                    RemitRequest(sendUserAccount.id.toInt(), productPrice, 70)
+                cameraProvider.shutdown()
+//                Toast.makeText(context, "잠시만 기다려주세요", Toast.LENGTH_SHORT).show()
+
+                navController.navigate(
+                    Screen.Success.route
+                        .replace(
+                            oldValue = "{price}",
+                            newValue =  productPrice.toString()
+                        )
                 )
+
+
+//                sendUserAccount = qrViewModel.sendUserInfo.value!!
+//                qrViewModel.remit(
+//                    RemitRequest(sendUserAccount.id.toInt(), productPrice, 185)
+//                )
             }
             if (it.error.isNotEmpty()) {
                 Toast.makeText(context, "QR코드를 다시 생성해주세요", Toast.LENGTH_SHORT).show()
@@ -147,21 +158,21 @@ fun CameraView(
         qrViewModel.remitState.collect {
             if (it.isSuccess) {
                 /*TODO*/
-                navController.navigate(
-                    Screen.Success.route
-                        .replace(
-                            oldValue = "{price}",
-                            newValue =  productPrice.toString()
-                        )
-                )
-                userName = sendUserAccount.name.slice(0 until sendUserAccount.name.indexOf("의"))
-                Toast.makeText(context, "${userName}님, 송금되었어요!", Toast.LENGTH_SHORT).show()
-                cameraProvider.shutdown()
-//                delay(3000)
-//                navController.popBackStack()
+//                navController.navigate(
+//                    Screen.Success.route
+//                        .replace(
+//                            oldValue = "{price}",
+//                            newValue =  productPrice.toString()
+//                        )
+//                )
             }
             if (it.error.isNotEmpty()) {
-                Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
+                navController.navigate(Screen.Failed.route) {
+                    popUpTo(navController.graph.id) {
+                        inclusive = true
+                    }
+                }
+//                Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
             }
         }
     }
