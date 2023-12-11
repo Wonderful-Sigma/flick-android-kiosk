@@ -24,3 +24,8 @@ object BasicColor {
     val White = Color(0xFFFFFFFF)
     val Background = Color(0xFFF3F4F6)
 }
+
+object StateColor {
+    val Success = Color(0xFF5B73FF)
+    val Failed = Color(0xFFFF5C5C)
+}

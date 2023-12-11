@@ -33,6 +33,7 @@ import androidx.navigation.NavController
 import com.google.common.util.concurrent.ListenableFuture
 import com.staker4wapper.flick_kiosk.data.dto.QrDecodingResponse
 import com.staker4wapper.flick_kiosk.data.dto.RemitRequest
+import com.staker4wapper.flick_kiosk.presentation.navigation.Screen
 import com.staker4wapper.flick_kiosk.presentation.screen.qrcode.QRViewModel
 import kotlinx.coroutines.delay
 import java.util.concurrent.ExecutorService
@@ -145,11 +146,19 @@ fun CameraView(
     LaunchedEffect(true) {
         qrViewModel.remitState.collect {
             if (it.isSuccess) {
+                /*TODO*/
+                navController.navigate(
+                    Screen.Success.route
+                        .replace(
+                            oldValue = "{price}",
+                            newValue =  productPrice.toString()
+                        )
+                )
                 userName = sendUserAccount.name.slice(0 until sendUserAccount.name.indexOf("의"))
                 Toast.makeText(context, "${userName}님, 송금되었어요!", Toast.LENGTH_SHORT).show()
                 cameraProvider.shutdown()
-                delay(3000)
-                navController.popBackStack()
+//                delay(3000)
+//                navController.popBackStack()
             }
             if (it.error.isNotEmpty()) {
                 Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()

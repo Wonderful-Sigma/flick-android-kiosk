@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import com.staker4wapper.flick_kiosk.presentation.screen.home.HomeScreen
 import com.staker4wapper.flick_kiosk.presentation.screen.home.HomeViewModel
 import com.staker4wapper.flick_kiosk.presentation.screen.qrcode.QRCodeScreen
+import com.staker4wapper.flick_kiosk.presentation.screen.result.SuccessScreen
 
 @Composable
 fun NavGraph(
@@ -52,6 +53,13 @@ fun NavGraph(
 
             if (productPrice != null && productName != null) {
                 QRCodeScreen(navController, productPrice, productName)
+            }
+        }
+        composable(route = Screen.Success.route) { backStackEntry ->
+            val productPrice = backStackEntry.arguments?.getString("price")
+
+            if (productPrice != null) {
+                SuccessScreen(navController, productPrice)
             }
         }
     }
