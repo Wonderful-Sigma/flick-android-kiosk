@@ -108,5 +108,5 @@ dependencies {
 
     implementation("io.woong.compose.grid:grid:1.0.0")
 
-//    implementation("com.airbnb.android:lottie-compose:$lottieVersion")
+    implementation("com.airbnb.android:lottie-compose:6.1.0")
 }
