@@ -1,16 +1,14 @@
 package com.staker4wapper.flick_kiosk.presentation.navigation
 
-import android.widget.Toast
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.staker4wapper.flick_kiosk.data.dto.ProductResponse
-import com.staker4wapper.flick_kiosk.presentation.Screen.home.HomeScreen
-import com.staker4wapper.flick_kiosk.presentation.Screen.home.HomeViewModel
-import com.staker4wapper.flick_kiosk.presentation.Screen.qrcode.QRCodeScreen
+import com.staker4wapper.flick_kiosk.presentation.screen.home.HomeScreen
+import com.staker4wapper.flick_kiosk.presentation.screen.home.HomeViewModel
+import com.staker4wapper.flick_kiosk.presentation.screen.qrcode.QRCodeScreen
 
 @Composable
 fun NavGraph(

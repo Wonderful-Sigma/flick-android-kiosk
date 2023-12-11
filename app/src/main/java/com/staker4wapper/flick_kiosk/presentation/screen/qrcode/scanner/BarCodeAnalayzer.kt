@@ -1,4 +1,4 @@
-package com.staker4wapper.flick_kiosk.presentation.Screen.qrcode
+package com.staker4wapper.flick_kiosk.presentation.screen.qrcode.scanner
 
 import android.annotation.SuppressLint
 import android.util.Log

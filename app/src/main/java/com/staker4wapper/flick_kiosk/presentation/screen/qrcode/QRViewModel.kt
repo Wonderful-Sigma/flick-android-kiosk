@@ -1,4 +1,4 @@
-package com.staker4wapper.flick_kiosk.presentation.Screen.qrcode
+package com.staker4wapper.flick_kiosk.presentation.screen.qrcode
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -8,8 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.staker4wapper.flick_kiosk.data.dto.QrDecodingResponse
 import com.staker4wapper.flick_kiosk.data.dto.RemitRequest
 import com.staker4wapper.flick_kiosk.data.repository.QRCodeRepository
-import com.staker4wapper.flick_kiosk.presentation.Screen.qrcode.state.QRDecodingState
-import com.staker4wapper.flick_kiosk.presentation.Screen.qrcode.state.RemitState
+import com.staker4wapper.flick_kiosk.presentation.screen.qrcode.state.QRDecodingState
+import com.staker4wapper.flick_kiosk.presentation.screen.qrcode.state.RemitState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow

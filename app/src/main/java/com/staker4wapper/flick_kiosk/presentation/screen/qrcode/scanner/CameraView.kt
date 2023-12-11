@@ -1,4 +1,4 @@
-package com.staker4wapper.flick_kiosk.presentation.Screen.qrcode
+package com.staker4wapper.flick_kiosk.presentation.screen.qrcode.scanner
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -33,6 +33,7 @@ import androidx.navigation.NavController
 import com.google.common.util.concurrent.ListenableFuture
 import com.staker4wapper.flick_kiosk.data.dto.QrDecodingResponse
 import com.staker4wapper.flick_kiosk.data.dto.RemitRequest
+import com.staker4wapper.flick_kiosk.presentation.screen.qrcode.QRViewModel
 import kotlinx.coroutines.delay
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -55,8 +56,9 @@ fun CameraView(
         modifier = Modifier.run {
             padding(horizontal = 45.dp)
                 .fillMaxWidth()
-                .height(800.dp)
+                .height(600.dp)
                 .padding(top = 40.dp)
+                .padding(horizontal = 120.dp)
                 .clip(RoundedCornerShape(20.dp))
         },
         color = Color.White
