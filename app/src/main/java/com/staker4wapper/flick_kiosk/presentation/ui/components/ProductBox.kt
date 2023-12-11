@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.staker4wapper.flick_kiosk.R
+import com.staker4wapper.flick_kiosk.presentation.ui.theme.BasicColor
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.Gray
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.SubTitleLarge
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.TitleMedium
@@ -35,59 +36,38 @@ fun ProductBox(
     name: String,
     onClick: () -> Unit
 ) {
-    Row(
+    Column(
         modifier = Modifier
-            .padding(horizontal = 13.dp)
-            .height(140.dp)
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(24.dp))
-            .background(Color.White)
+            .background(BasicColor.White)
+            .clip(RoundedCornerShape(10.dp))
             .clickable(onClick = onClick),
-        verticalAlignment = Alignment.CenterVertically
     ) {
-//        Box(
-//            modifier = Modifier
-//                .padding(start = 32.dp)
-//                .size(90.dp)
-//                .clip(RoundedCornerShape(20.dp))
-//                .background(Gray.gray100),
-//        )
         AsyncImage(
             modifier = Modifier
-                .padding(start = 32.dp)
-                .size(90.dp)
-                .clip(RoundedCornerShape(20.dp))
+                .padding(top = 12.dp, start = 12.dp, end = 12.dp)
+                .size(200.dp)
+                .clip(RoundedCornerShape(30.dp))
                 .background(Gray.gray50),
             model = image,
             contentDescription = "productImage"
         )
-        Column(
-            modifier = Modifier.padding(start = 30.dp)
-        ) {
-            TitleMedium(text = "${price}코인", color = Gray.gray800)
-            SubTitleLarge(
-                modifier = Modifier.padding(top = 4.dp),
-                text = name,
-                color = Gray.gray700
-            )
-        }
-        Spacer(modifier = Modifier.weight(1f))
-        IconButton(
-            modifier = Modifier.padding(end = 32.dp),
-            onClick = { /*TODO*/ }) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_arrow_right_mini),
-                contentDescription = "icArrowRightMini",
-                tint = Gray.gray200
-            )
-        }
+        TitleMedium(
+            modifier = Modifier.padding(start = 12.dp, top = 16.dp),
+            text = name,
+            color = Gray.gray800
+        )
+        SubTitleLarge(
+            modifier = Modifier.padding(start = 12.dp, bottom = 12.dp, top = 6.dp),
+            text = "${price}코인",
+            color = Gray.gray700
+        )
     }
 }
 
 @Preview
 @Composable
 fun GreetingPreview() {
-    ProductBox(image = "", price = 380, name = "아주 맛있는 코코팜") {
+    ProductBox(image = "", price = 380, name = "코코팜") {
 
     }
 }
