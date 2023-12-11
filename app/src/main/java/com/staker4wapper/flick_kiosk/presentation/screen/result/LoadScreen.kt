@@ -9,10 +9,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import com.staker4wapper.flick_kiosk.data.dto.RemitRequest
 import com.staker4wapper.flick_kiosk.presentation.navigation.Screen
@@ -31,10 +33,10 @@ fun LoadScreen(
     qrViewModel: QRViewModel = hiltViewModel(),
 ) {
 
-//    val sendUserAccount = qrViewModel.sendUserInfo.value!!
-//    qrViewModel.remit(
-//        RemitRequest(sendUserAccount.id.toInt(), productPrice.toLong(), 185)
-//    )
+    val sendUserAccount = qrViewModel.sendUserInfo.value!!
+    qrViewModel.remit(
+        RemitRequest(sendUserAccount.id.toInt(), productPrice.toLong(), 185)
+    )
 
     Column(
         modifier = Modifier.background(BasicColor.White),
@@ -55,14 +57,14 @@ fun LoadScreen(
     }
 
     LaunchedEffect(true) {
-        delay(1000)
-        navController.navigate(
-            Screen.Success.route
-                .replace(
-                    oldValue = "{price}",
-                    newValue = productPrice
-                )
-        )
+//        delay(1000)
+//        navController.navigate(
+//            Screen.Success.route
+//                .replace(
+//                    oldValue = "{price}",
+//                    newValue = productPrice
+//                )
+//        )
         qrViewModel.remitState.collect {
             if (it.isSuccess) {
                 delay(1000)

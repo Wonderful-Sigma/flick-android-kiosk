@@ -127,16 +127,39 @@ fun CameraView(
         qrViewModel.qrDecodingState.collect {
             if (it.isSuccess) {
                 cameraProvider.shutdown()
+                val sendUserAccount = qrViewModel.sendUserInfo.value!!
+                qrViewModel.remit(
+                    RemitRequest(sendUserAccount.id.toInt(), productPrice, 185)
+                )
+//                navController.navigate(
+//                    Screen.Load.route
+//                        .replace(
+//                            oldValue = "{price}",
+//                            newValue =  productPrice.toString()
+//                        )
+//                )
+            }
+            if (it.error.isNotEmpty()) {
+                Toast.makeText(context, "QR코드를 다시 생성해주세요", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    LaunchedEffect(true) {
+        qrViewModel.remitState.collect {
+            if (it.isSuccess) {
+                delay(1000)
                 navController.navigate(
-                    Screen.Load.route
+                    Screen.Success.route
                         .replace(
                             oldValue = "{price}",
-                            newValue =  productPrice.toString()
+                            newValue = productPrice.toString()
                         )
                 )
             }
             if (it.error.isNotEmpty()) {
-                Toast.makeText(context, "QR코드를 다시 생성해주세요", Toast.LENGTH_SHORT).show()
+                delay(1000)
+                navController.navigate(Screen.Failed.route)
             }
         }
     }
