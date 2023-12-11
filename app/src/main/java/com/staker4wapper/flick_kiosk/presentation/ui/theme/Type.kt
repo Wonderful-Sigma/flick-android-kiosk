@@ -34,10 +34,23 @@ fun TitleMedium(modifier: Modifier = Modifier, text: String, color: Color) {
         text = text,
         color = color,
         fontFamily = pretendard,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 28.sp
+        fontWeight = FontWeight.Bold,
+        fontSize = 24.sp
     )
 }
+
+@Composable
+fun TitleSmall(modifier: Modifier = Modifier, text: String, color: Color) {
+    Text(
+        modifier = modifier,
+        text = text,
+        color = color,
+        fontFamily = pretendard,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 24.sp
+    )
+}
+
 @Composable
 fun SubTitleLarge(modifier: Modifier = Modifier, text: String, color: Color) {
     Text(

@@ -19,3 +19,8 @@ object Gray {
     val gray100 = Color(0xFFDBDEE2)
     val gray50 = Color(0xFFF2F3F4)
 }
+
+object BasicColor {
+    val White = Color(0xFFFFFFFF)
+    val Background = Color(0xFFF3F4F6)
+}
