@@ -8,6 +8,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -18,7 +22,7 @@ import com.staker4wapper.flick_kiosk.presentation.ui.theme.TitleLarge
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.TitleSmall
 
 @Composable
-fun PriceBox(price: String) {
+fun PriceBox(price: Int) {
     Row(
         modifier = Modifier
             .height(152.dp)

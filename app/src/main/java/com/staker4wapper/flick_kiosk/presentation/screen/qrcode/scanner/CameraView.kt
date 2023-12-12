@@ -17,6 +17,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -40,13 +41,16 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 
-@SuppressLint("RestrictedApi", "VisibleForTests")
+@SuppressLint("RestrictedApi")
 @Composable
 fun CameraView(
-    productPrice: Long,
+    productPrice: Int,
     qrViewModel: QRViewModel = hiltViewModel(),
     navController: NavController
 ) {
+    var lastProductPrice by remember { mutableIntStateOf(productPrice) }
+    lastProductPrice = productPrice
+
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     var preview by remember { mutableStateOf<Preview?>(null) }
@@ -132,7 +136,7 @@ fun CameraView(
                     Screen.Load.route
                         .replace(
                             oldValue = "{price}",
-                            newValue = productPrice.toString()
+                            newValue = lastProductPrice.toString()
                         )
                         .replace(
                             oldValue = "{user_id}",

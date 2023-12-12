@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -46,8 +47,8 @@ fun ProductBox(
     ) {
         AsyncImage(
             modifier = Modifier
-                .padding(top = 12.dp, start = 12.dp, end = 12.dp)
                 .fillMaxSize()
+                .padding(top = 12.dp, start = 12.dp, end = 12.dp)
                 .clip(RoundedCornerShape(30.dp))
                 .background(Gray.gray50),
             model = image,
