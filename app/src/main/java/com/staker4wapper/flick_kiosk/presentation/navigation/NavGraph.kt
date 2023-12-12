@@ -83,9 +83,10 @@ fun NavGraph(
             /* ------------------- */
         ) { backStackEntry ->
             val productPrice = backStackEntry.arguments?.getString("price")
+            val sendUserId = backStackEntry.arguments?.getString("user_id")
 
-            if (productPrice != null) {
-                LoadScreen(navController, productPrice)
+            if (productPrice != null && sendUserId != null) {
+                LoadScreen(navController, sendUserId, productPrice)
             }
         }
         composable(

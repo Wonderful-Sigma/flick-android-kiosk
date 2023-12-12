@@ -51,9 +51,7 @@ fun SuccessScreen(
             composition = composition,
             contentScale = ContentScale.FillHeight
         )
-        TitleLarge(
-            text = "${productPrice}코인이", color = Gray.gray800,
-        )
+        TitleLarge(text = "${productPrice}코인이", color = Gray.gray800)
         TitleLarge(text = "결제되었어요", color = Gray.gray800)
         Spacer(modifier = Modifier.weight(1f))
         FlickIcon()
