@@ -54,14 +54,15 @@ fun TitleSmall(modifier: Modifier = Modifier, text: String, color: Color) {
 }
 
 @Composable
-fun SubTitleLarge(modifier: Modifier = Modifier, text: String, color: Color) {
+fun SubTitleLarge(modifier: Modifier = Modifier, text: String, color: Color, textAlign: TextAlign = TextAlign.Left) {
     Text(
         modifier = modifier,
         text = text,
         color = color,
         fontFamily = pretendard,
         fontWeight = FontWeight.Normal,
-        fontSize = 22.sp
+        fontSize = 22.sp,
+        textAlign = textAlign,
     )
 }
 @Composable

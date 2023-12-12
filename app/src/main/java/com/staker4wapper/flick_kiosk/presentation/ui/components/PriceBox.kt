@@ -3,6 +3,7 @@ package com.staker4wapper.flick_kiosk.presentation.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -20,9 +21,10 @@ import com.staker4wapper.flick_kiosk.presentation.ui.theme.TitleSmall
 fun PriceBox(price: String) {
     Row(
         modifier = Modifier
-            .height(202.dp)
+            .height(152.dp)
+            .fillMaxWidth()
             .padding(horizontal = 137.dp)
-            .padding(top = 90.dp)
+            .padding(top = 10.dp)
             .clip(RoundedCornerShape(30.dp))
             .background(BasicColor.White),
         verticalAlignment = Alignment.CenterVertically

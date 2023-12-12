@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -17,11 +18,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.staker4wapper.flick_kiosk.R
 import com.staker4wapper.flick_kiosk.presentation.screen.qrcode.scanner.CameraView
 import com.staker4wapper.flick_kiosk.presentation.ui.components.PriceBox
+import com.staker4wapper.flick_kiosk.presentation.ui.theme.BackArrowIconButton
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.BasicColor
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.FlickIcon
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.Gray
@@ -39,13 +42,14 @@ fun QRCodeScreen(
         modifier = Modifier
             .background(BasicColor.Background)
             .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        BackArrowIconButton(navController = navController)
         PriceBox(price = productPrice)
         CameraView(productPrice.toLong(), navController = navController)
         SubTitleLarge(
-            modifier = Modifier.padding(top = 24.dp),
-            text = "앱으로 생성한 QR코드를 인식시켜주세요", color = Gray.gray300
+            modifier = Modifier.padding(top = 24.dp).fillMaxWidth(),
+            text = "앱으로 생성한 QR코드를 인식시켜주세요", color = Gray.gray300,
+            textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.weight(1f))
         FlickIcon()
