@@ -26,6 +26,7 @@
 - Libraries
   - Retrofit2, OkHttp3
   - Dagger Hilt
+  - Glide
   - [code-scanner](https://github.com/yuriy-budiyev/code-scanner/tree/master)
 - Jetpack
   - ViewModel
