@@ -21,7 +21,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.staker4wapper.flick_kiosk.R
-import com.staker4wapper.flick_kiosk.presentation.ui.components.ProductList
+import com.staker4wapper.flick_kiosk.presentation.ui.components.DrinkList
+import com.staker4wapper.flick_kiosk.presentation.ui.components.LineBox
+import com.staker4wapper.flick_kiosk.presentation.ui.components.SnackList
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.FlickIcon
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.Gray
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.TitleLarge
@@ -48,13 +50,21 @@ fun HomeScreen(
             color = Gray.gray900
         )
         TitleSmall(
-            modifier = Modifier.padding(top = 60.dp, start = 45.dp),
+            modifier = Modifier.padding(top = 60.dp, start = 45.dp, bottom = 30.dp),
             text = "간식",
             color = Gray.gray700
         )
-        Spacer(modifier = Modifier.height(30.dp))
         productList.value?.let {
-            ProductList(navController = navController, productList = it)
+            SnackList(navController = navController, productList = it)
+        }
+        LineBox(modifier = Modifier.padding(vertical = 40.dp))
+        TitleSmall(
+            modifier = Modifier.padding(start = 45.dp, bottom = 30.dp),
+            text = "음료",
+            color = Gray.gray700
+        )
+        productList.value?.let {
+            DrinkList(navController = navController, productList = it)
         }
         Spacer(modifier = Modifier.height(80.dp))
         FlickIcon()

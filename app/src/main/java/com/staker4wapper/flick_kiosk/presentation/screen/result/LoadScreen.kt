@@ -27,6 +27,7 @@ import com.staker4wapper.flick_kiosk.data.dto.PaymentRequest
 import com.staker4wapper.flick_kiosk.data.dto.RemitRequest
 import com.staker4wapper.flick_kiosk.presentation.navigation.Screen
 import com.staker4wapper.flick_kiosk.presentation.screen.qrcode.QRViewModel
+import com.staker4wapper.flick_kiosk.presentation.screen.qrcode.state.RemitState
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.BasicColor
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.FlickIcon
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.Gray
@@ -64,7 +65,7 @@ fun LoadScreen(
 
     LaunchedEffect(true) {
 //        qrViewModel.payment(
-//            // 로투스 비스코프
+//            // 로투스 비스코프 2개
 //            PaymentRequest(listOf(9), sendUserId.toLong(), listOf(2))
 //        )
         qrViewModel.remit(

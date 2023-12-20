@@ -7,7 +7,7 @@ import retrofit2.http.Path
 
 interface ProductApi {
 
-    @GET("/api/goods/searchAll/{walletId}") // todo : 이거 왜 GET으로 하면 됌?
+    @GET("/api/goods/searchAll/{walletId}")
     suspend fun getAllProducts(
         @Path("walletId") walletId: Int
     ): List<ProductResponse>
