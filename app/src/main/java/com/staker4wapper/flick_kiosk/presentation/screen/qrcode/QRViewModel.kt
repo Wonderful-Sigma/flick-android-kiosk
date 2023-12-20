@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.staker4wapper.flick_kiosk.data.dto.PaymentRequest
 import com.staker4wapper.flick_kiosk.data.dto.QrDecodingResponse
 import com.staker4wapper.flick_kiosk.data.dto.RemitRequest
 import com.staker4wapper.flick_kiosk.data.repository.QRCodeRepository
@@ -60,6 +61,16 @@ class QRViewModel @Inject constructor(
         }.onFailure { e ->
             Log.d(TAG, "remit: FAILED.. $e")
             _remitState.emit(RemitState(error = "$e"))
+        }
+    }
+
+    fun payment(paymentRequest: PaymentRequest) = viewModelScope.launch {
+        kotlin.runCatching {
+            qrCodeRepository.payment(paymentRequest)
+        }.onSuccess { 
+            Log.d(TAG, "payment: FAILED.. $it")
+        }.onFailure { e ->
+            Log.d(TAG, "payment: FAILED.. $e")
         }
     }
 

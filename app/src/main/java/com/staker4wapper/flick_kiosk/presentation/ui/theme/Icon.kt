@@ -29,6 +29,16 @@ fun FlickIcon() {
 }
 
 @Composable
+fun CountIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.ic_count),
+        contentDescription = "",
+        tint = Color.Unspecified
+    )
+}
+
+@Composable
 fun BackArrowIconButton(navController: NavController) {
     IconButton(
         modifier = Modifier.padding(20.dp),

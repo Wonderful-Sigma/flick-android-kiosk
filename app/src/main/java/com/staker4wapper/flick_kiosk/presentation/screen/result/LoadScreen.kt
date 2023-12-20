@@ -23,6 +23,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.staker4wapper.flick_kiosk.R
+import com.staker4wapper.flick_kiosk.data.dto.PaymentRequest
 import com.staker4wapper.flick_kiosk.data.dto.RemitRequest
 import com.staker4wapper.flick_kiosk.presentation.navigation.Screen
 import com.staker4wapper.flick_kiosk.presentation.screen.qrcode.QRViewModel
@@ -56,12 +57,16 @@ fun LoadScreen(
         TitleLarge(
             text = "${productPrice}코인", color = Gray.gray800,
         )
-        TitleLarge(text = "송금하는 중", color = Gray.gray800)
+        TitleLarge(text = "결제하는 중", color = Gray.gray800)
         Spacer(modifier = Modifier.weight(1f))
         FlickIcon()
     }
 
     LaunchedEffect(true) {
+//        qrViewModel.payment(
+//            // 로투스 비스코프
+//            PaymentRequest(listOf(9), sendUserId.toLong(), listOf(2))
+//        )
         qrViewModel.remit(
             RemitRequest(sendUserId.toInt(), productPrice.toLong(), 185)
         )

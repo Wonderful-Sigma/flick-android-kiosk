@@ -5,5 +5,6 @@ data class ProductResponse(
     val value: Int,
     val name: String,
     val imageUrl: String,
+    val count: Int,
     val id: Int
 )

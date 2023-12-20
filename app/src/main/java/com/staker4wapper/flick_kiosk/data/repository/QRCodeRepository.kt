@@ -1,6 +1,8 @@
 package com.staker4wapper.flick_kiosk.data.repository
 
 import com.staker4wapper.flick_kiosk.data.api.QRCodeApi
+import com.staker4wapper.flick_kiosk.data.dto.PaymentRequest
+import com.staker4wapper.flick_kiosk.data.dto.PaymentResponse
 import com.staker4wapper.flick_kiosk.data.dto.QrDecodingResponse
 import com.staker4wapper.flick_kiosk.data.dto.RemitRequest
 import com.staker4wapper.flick_kiosk.data.dto.RemitResponse
@@ -14,5 +16,8 @@ class QRCodeRepository @Inject constructor(
 
     suspend fun remit(remitRequest: RemitRequest): RemitResponse =
         qrCodeApi.remit(remitRequest)
+
+    suspend fun payment(paymentRequest: PaymentRequest): PaymentResponse =
+        qrCodeApi.payment(paymentRequest)
 
 }

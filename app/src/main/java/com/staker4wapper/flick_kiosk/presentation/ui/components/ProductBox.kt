@@ -28,8 +28,10 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.staker4wapper.flick_kiosk.R
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.BasicColor
+import com.staker4wapper.flick_kiosk.presentation.ui.theme.CountIcon
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.Gray
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.SubTitleLarge
+import com.staker4wapper.flick_kiosk.presentation.ui.theme.SubTitleSmall
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.TitleMedium
 
 @Composable
@@ -37,6 +39,7 @@ fun ProductBox(
     image: String,
     price: Int,
     name: String,
+    count: Int,
     onClick: () -> Unit
 ) {
     Column(
@@ -59,18 +62,28 @@ fun ProductBox(
             text = name,
             color = Gray.gray800
         )
-        SubTitleLarge(
-            modifier = Modifier.padding(start = 12.dp, bottom = 12.dp, top = 6.dp),
-            text = "${price}코인",
-            color = Gray.gray700
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            SubTitleLarge(
+                modifier = Modifier.padding(start = 12.dp, bottom = 12.dp, top = 6.dp),
+                text = "${price}코인",
+                color = Gray.gray700
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            CountIcon()
+            SubTitleSmall(
+                modifier = Modifier.padding(start = 6.dp, end = 12.dp),
+                text = "${count}개", color = Gray.gray300
+            )
+        }
     }
 }
 
 @Preview
 @Composable
 fun GreetingPreview() {
-    ProductBox(image = "", price = 380, name = "코코팜") {
+    ProductBox(image = "", price = 380, name = "코코팜", count = 10) {
 
     }
 }

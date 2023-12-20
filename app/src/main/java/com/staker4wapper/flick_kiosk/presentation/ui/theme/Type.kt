@@ -76,3 +76,15 @@ fun SubTitleMedium(modifier: Modifier = Modifier, text: String, color: Color) {
         fontSize = 20.sp
     )
 }
+
+@Composable
+fun SubTitleSmall(modifier: Modifier = Modifier, text: String, color: Color) {
+    Text(
+        modifier = modifier,
+        text = text,
+        color = color,
+        fontFamily = pretendard,
+        fontWeight = FontWeight.Normal,
+        fontSize = 18.sp
+    )
+}

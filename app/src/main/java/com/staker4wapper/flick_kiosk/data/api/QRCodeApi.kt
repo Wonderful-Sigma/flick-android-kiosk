@@ -1,5 +1,7 @@
 package com.staker4wapper.flick_kiosk.data.api
 
+import com.staker4wapper.flick_kiosk.data.dto.PaymentRequest
+import com.staker4wapper.flick_kiosk.data.dto.PaymentResponse
 import com.staker4wapper.flick_kiosk.data.dto.QrDecodingResponse
 import com.staker4wapper.flick_kiosk.data.dto.RemitRequest
 import com.staker4wapper.flick_kiosk.data.dto.RemitResponse
@@ -18,5 +20,10 @@ interface QRCodeApi {
     suspend fun remit(
         @Body remitRequest: RemitRequest
     ): RemitResponse
+
+    @PATCH("/payment")
+    suspend fun payment(
+        @Body paymentRequest: PaymentRequest
+    ): PaymentResponse
 
 }

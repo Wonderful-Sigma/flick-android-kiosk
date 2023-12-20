@@ -20,7 +20,8 @@ fun ProductList(navController: NavController, productList: List<ProductResponse>
             ProductBox(
                 image = product.imageUrl,
                 price =  product.value,
-                name = product.name
+                name = product.name,
+                count = product.count
             ) {
                 navController.navigate(
                     Screen.QRCode.route
