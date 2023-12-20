@@ -7,8 +7,10 @@
 
 ## Preview
 
-<img width="49%" alt="Mocking_1" src="https://github.com/Wonderful-Sigma/flick-android-kiosk/assets/103572569/92dc1c8c-3c56-4ea8-a5d9-38547e3675d6">
-<img width="49%" alt="Mocking_2" src="https://github.com/Wonderful-Sigma/flick-android-kiosk/assets/103572569/4ac0371d-0fd4-4dcd-8af2-f09102a94a80">
+<img width="49%" alt="Mocking_1" src="https://github.com/Wonderful-Sigma/flick-android-kiosk/assets/103572569/c253ba42-5120-44e1-8376-a54d21c2fff3">
+<img width="49%" alt="Mocking_2" src="https://github.com/Wonderful-Sigma/flick-android-kiosk/assets/103572569/79f5cdcf-d1fe-4109-b2b1-0ad2e85c814e">
+<img width="49%" alt="Mocking_3" src="https://github.com/Wonderful-Sigma/flick-android-kiosk/assets/103572569/1dc2b8b4-265a-4ea3-8f77-acdf77955db0">
+<img width="49%" alt="Mocking_4" src="https://github.com/Wonderful-Sigma/flick-android-kiosk/assets/103572569/b513be60-2ebe-4c3a-9b76-a5a6858786bc">
 
 ## Developer
 
