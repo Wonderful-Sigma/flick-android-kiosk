@@ -11,6 +11,7 @@ import retrofit2.http.Header
 import retrofit2.http.PATCH
 
 interface QRCodeApi {
+    
     @GET("/api/QrCode/search/qr")
     suspend fun decodingQrCode(
         @Header("jwt") jwt: String
