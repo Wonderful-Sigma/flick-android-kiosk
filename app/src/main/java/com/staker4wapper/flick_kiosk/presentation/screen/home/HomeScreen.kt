@@ -83,7 +83,7 @@ fun HomeScreen(
                 .height(80.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (state.value) {SubTitleLarge(text = "총 결재된 금액 : 1,000대소코인", color = gray400)}
+            if (state.value) { SubTitleLarge(text = "총 결재된 금액 : 1,000대소코인", color = gray400) }
             Spacer(modifier = Modifier.weight(1F))
             Row(modifier = Modifier
                 .clickable {
