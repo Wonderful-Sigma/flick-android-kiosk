@@ -60,18 +60,19 @@ fun HomeScreen(
     val productList = homeViewModel.productList.observeAsState()
     val scrollState = rememberLazyListState()
 
-    val state = homeViewModel.state.observeAsState(false)
+    val isAdmin = homeViewModel.state.observeAsState(false)
 
     var showDialog by remember { mutableStateOf(false) }
+
 
     if (showDialog) {
         AdminPasswordDialog(onConfirm = {
             showDialog = false
             homeViewModel.changeState() // state 변경
-            Log.d("onConfirm", "HomeScreen: $state")
+            Log.d("onConfirm", "HomeScreen: $isAdmin")
         }, onDismiss = {
             showDialog = false
-            Log.d("onDismiss", "HomeScreen: $state")
+            Log.d("onDismiss", "HomeScreen: $isAdmin")
         })
     }
 
@@ -83,7 +84,7 @@ fun HomeScreen(
                 .height(80.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (state.value) { SubTitleLarge(text = "총 결재된 금액 : 1,000대소코인", color = gray400) }
+            if (isAdmin.value) { SubTitleLarge(text = "총 결재된 금액 : 1,000대소코인", color = gray400) }
             Spacer(modifier = Modifier.weight(1F))
             Row(modifier = Modifier
                 .clickable {
@@ -104,7 +105,7 @@ fun HomeScreen(
                 )
                 Spacer(modifier = Modifier.width(12.dp))
                 Text(
-                    text = if (state.value) "어드민 변경" else "클라이언트 변경",
+                    text = if (isAdmin.value) "어드민 변경" else "클라이언트 변경",
                     color = Color(0xFF1A1E27),
                     modifier = Modifier.padding(end = 16.dp)
                 )
@@ -126,7 +127,7 @@ fun HomeScreen(
                         color = Gray.gray900
                     )
                     Spacer(Modifier.weight(1F))
-                    if (state.value) {
+                    if (isAdmin.value) {
                         Box(modifier = Modifier
                             .clickable { navController.navigate(Screen.Create.route) }
                             .background(Color(0xFF5B73FF), RoundedCornerShape(8.dp))
@@ -144,7 +145,7 @@ fun HomeScreen(
             }
             item {
                 productList.value?.let {
-                    SnackList(navController = navController, productList = it)
+                    SnackList(navController = navController, productList = it, isAdmin.value)
                 }
             }
         }

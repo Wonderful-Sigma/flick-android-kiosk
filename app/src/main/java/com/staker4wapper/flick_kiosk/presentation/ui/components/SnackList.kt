@@ -7,11 +7,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.staker4wapper.flick_kiosk.data.room.Product
 import com.staker4wapper.flick_kiosk.presentation.navigation.Screen
+import com.staker4wapper.flick_kiosk.presentation.screen.home.HomeViewModel
 import io.woong.compose.grid.SimpleGridCells
 import io.woong.compose.grid.VerticalGrid
 
 @Composable
-fun SnackList(navController: NavController, productList: List<Product>) {
+fun SnackList(navController: NavController, productList: List<Product>, isAdmin: Boolean) {
 
     VerticalGrid(
         modifier = Modifier.padding(horizontal = 33.dp),
@@ -22,7 +23,7 @@ fun SnackList(navController: NavController, productList: List<Product>) {
                 image = product.image,
                 price = product.price,
                 name = product.name,
-//                    count = product.count
+                isAdmin = isAdmin
             ) {
                 navController.navigate(
                     Screen.QRCode.route
