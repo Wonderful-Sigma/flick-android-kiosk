@@ -19,10 +19,11 @@
 
 ## Stack
 - Languege
-  - 100% Kotlin + Jetpack Compose
+  - 100% Kotlin
 - Architecture
   - MVVM Pattern
 - Android
+  - Jetpack Compose
   - Coroutine
   - Flow
 - Libraries
