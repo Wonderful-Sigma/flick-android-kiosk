@@ -2,6 +2,7 @@ package com.staker4wapper.flick_kiosk.presentation.screen.product
 
 import android.net.Uri
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -189,9 +190,13 @@ fun CreateProductScreen(
             Modifier
                 .width(448.dp)
                 .height(61.dp)
-                .background(Color(0xFFC8D0FF), shape = RoundedCornerShape(size = 16.dp))
+                .background(Color(0xFF5B73FF), shape = RoundedCornerShape(size = 16.dp))
                 .clickable {
-                    homeViewModel.createProduct(name, price.toInt(), selectedUri, contentResolver)
+                    if (name.isNotEmpty() && price.isNotEmpty()) {
+                        homeViewModel.createProduct(name, price.toInt(), selectedUri, contentResolver)
+                    } else {
+                        Toast.makeText(context, "내용을 채워주세요", Toast.LENGTH_SHORT).show()
+                    }
                 }, contentAlignment = Alignment.Center
         ) {
             Text(text = "상품 추가", color = Color.White, fontSize = 24.sp)
