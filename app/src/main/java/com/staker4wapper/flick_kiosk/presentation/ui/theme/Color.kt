@@ -14,9 +14,10 @@ object Gray {
     val gray900 = Color(0xFF1A1E27)
     val gray800 = Color(0xFF353C49)
     val gray700 = Color(0xFF505866)
+    val gray400 = Color(0xFF969FA8)
     val gray300 = Color(0xFF969FA8)
     val gray200 = Color(0xFFB1B8C0)
-    val gray100 = Color(0xFFDBDEE2)
+    val gray100 = Color(0xFFF2F3F4)
     val gray50 = Color(0xFFF2F3F4)
 }
 

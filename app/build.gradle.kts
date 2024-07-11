@@ -85,6 +85,11 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
 
+    implementation ("androidx.room:room-runtime:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+    kapt ("androidx.room:room-compiler:2.6.1")
+
+
     implementation("com.google.dagger:hilt-android:2.46.1")
     kapt("com.google.dagger:hilt-android-compiler:2.46.1")
 
@@ -93,6 +98,15 @@ dependencies {
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.32.0")
 
     implementation("io.coil-kt:coil-compose:2.5.0")
+
+    implementation("io.viascom.nanoid:nanoid:1.0.1")
+
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
+
+    implementation("io.coil-kt:coil-compose:2.3.0")
+    implementation("io.coil-kt:coil-video:2.3.0")
+    implementation("io.coil-kt:coil-gif:2.3.0")
+
 
     val camerax_version = "1.0.2"
     implementation ("androidx.camera:camera-core:${camerax_version}")

@@ -69,7 +69,7 @@ fun LoadScreen(
 //            PaymentRequest(listOf(9), sendUserId.toLong(), listOf(2))
 //        )
         qrViewModel.remit(
-            RemitRequest(sendUserId.toInt(), productPrice.toLong(), 185)
+            RemitRequest(sendUserId.toInt(), productPrice.toLong(), 5)
         )
         qrViewModel.remitState.collect {
             if (it.isSuccess) {

@@ -18,8 +18,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
 
-    /* LoginApi Type의 객체 생성 */
-
     @Provides
     @Singleton
     fun provideProductApi(retrofit: Retrofit): ProductApi =
@@ -29,9 +27,6 @@ class NetworkModule {
     @Singleton
     fun provideQRCodeApi(retrofit: Retrofit): QRCodeApi =
         retrofit.create(QRCodeApi::class.java)
-
-
-    /* Retrofit Object 생성 */
 
     @Provides
     @Singleton

@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.staker4wapper.flick_kiosk.presentation.screen.home.HomeScreen
 import com.staker4wapper.flick_kiosk.presentation.screen.home.HomeViewModel
+import com.staker4wapper.flick_kiosk.presentation.screen.product.CreateProductScreen
 import com.staker4wapper.flick_kiosk.presentation.screen.qrcode.QRCodeScreen
 import com.staker4wapper.flick_kiosk.presentation.screen.result.FailedScreen
 import com.staker4wapper.flick_kiosk.presentation.screen.result.LoadScreen
@@ -15,41 +16,35 @@ import com.staker4wapper.flick_kiosk.presentation.screen.result.SuccessScreen
 
 @Composable
 fun NavGraph(
-    navController : NavHostController,
-    homeViewModel: HomeViewModel
-){
+    navController: NavHostController, homeViewModel: HomeViewModel
+) {
     NavHost(
-        navController = navController,
-        startDestination = Screen.Home.route
-    ){
+        navController = navController, startDestination = Screen.Home.route
+    ) {
         composable(route = Screen.Home.route) {
             HomeScreen(navController = navController, homeViewModel)
         }
-        composable(
-            route = Screen.QRCode.route,
-            enterTransition = {
-                when (initialState.destination.route) {
-                    Screen.Home.route ->
-                        slideIntoContainer(
-                            AnimatedContentTransitionScope.SlideDirection.Left,
-                            animationSpec = tween(500)
-                        )
-                    else -> null
-                }
-            },
-            popExitTransition = {
-                when (targetState.destination.route) {
-                    Screen.Home.route ->
-                        slideOutOfContainer(
-                            AnimatedContentTransitionScope.SlideDirection.Right,
-                            animationSpec = tween(500)
-                        )
+        composable(route = Screen.Create.route){
+            CreateProductScreen(navController = navController, homeViewModel = homeViewModel)
+        }
+        composable(route = Screen.QRCode.route, enterTransition = {
+            when (initialState.destination.route) {
+                Screen.Home.route -> slideIntoContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Left,
+                    animationSpec = tween(500)
+                )
 
-                    else -> null
-                }
+                else -> null
             }
-            /* ------------------- */
-        ){ backStackEntry ->
+        }, popExitTransition = {
+            when (targetState.destination.route) {
+                Screen.Home.route -> slideOutOfContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Right,
+                    animationSpec = tween(500)
+                )
+                else -> null
+            }
+        }) { backStackEntry ->
             val productPrice = backStackEntry.arguments?.getString("price")
             val productName = backStackEntry.arguments?.getString("name")
 
@@ -57,31 +52,25 @@ fun NavGraph(
                 QRCodeScreen(navController, productPrice, productName)
             }
         }
-        composable(
-            route = Screen.Load.route,
-            enterTransition = {
-                when (initialState.destination.route) {
-                    Screen.QRCode.route ->
-                        slideIntoContainer(
-                            AnimatedContentTransitionScope.SlideDirection.Left,
-                            animationSpec = tween(500)
-                        )
-                    else -> null
-                }
-            },
-            popExitTransition = {
-                when (targetState.destination.route) {
-                    Screen.QRCode.route ->
-                        slideOutOfContainer(
-                            AnimatedContentTransitionScope.SlideDirection.Right,
-                            animationSpec = tween(500)
-                        )
+        composable(route = Screen.Load.route, enterTransition = {
+            when (initialState.destination.route) {
+                Screen.QRCode.route -> slideIntoContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Left,
+                    animationSpec = tween(500)
+                )
 
-                    else -> null
-                }
+                else -> null
             }
-            /* ------------------- */
-        ) { backStackEntry ->
+        }, popExitTransition = {
+            when (targetState.destination.route) {
+                Screen.QRCode.route -> slideOutOfContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Right,
+                    animationSpec = tween(500)
+                )
+
+                else -> null
+            }
+        }/* ------------------- */) { backStackEntry ->
             val productPrice = backStackEntry.arguments?.getString("price")
             val sendUserId = backStackEntry.arguments?.getString("user_id")
 

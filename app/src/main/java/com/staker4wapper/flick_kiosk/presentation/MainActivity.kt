@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
             Flick_KioskTheme {
                 SetStatusBarColor(color = Color.Transparent)
                 val homeViewModel: HomeViewModel = hiltViewModel()
-                homeViewModel.getAllProducts(walletId = 70)
+                homeViewModel.getAllProducts()
                 val navController = rememberNavController()
                 NavGraph(navController = navController, homeViewModel)
             }

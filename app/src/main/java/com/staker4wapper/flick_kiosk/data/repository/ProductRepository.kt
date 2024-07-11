@@ -10,5 +10,4 @@ class ProductRepository @Inject constructor(
 
     suspend fun getAllProduct(walletId: Int): List<ProductResponse> =
         productApi.getAllProducts(walletId)
-
 }
