@@ -1,6 +1,5 @@
 package com.staker4wapper.flick_kiosk.presentation.ui.components
 
-
 import com.staker4wapper.flick_kiosk.presentation.utils.Patten.toCommaString
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -40,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.staker4wapper.flick_kiosk.R
 import com.staker4wapper.flick_kiosk.presentation.screen.home.AdminPasswordDialog
+import com.staker4wapper.flick_kiosk.presentation.screen.home.HomeViewModel
 import com.staker4wapper.flick_kiosk.presentation.screen.home.PASSWORD
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.BasicColor
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.Gray
@@ -49,22 +49,21 @@ import com.staker4wapper.flick_kiosk.presentation.ui.theme.TitleMedium
 
 @Composable
 fun ProductBox(
+    uid: String,
     image: ByteArray?,
     price: Int,
     name: String,
     isAdmin: Boolean = false,
+    homeViewModel: HomeViewModel,
     onClick: () -> Unit
 ) {
     var showDialog by remember { mutableStateOf(false) }
 
     if (showDialog) {
-        CheckDeleteDialog(
-            onDismiss = { showDialog = false },
-            onConfirm = {
-                // TODO: item 삭제하기
-//                showDialog = false
-            }
-        )
+        CheckDeleteDialog(onDismiss = { showDialog = false }, onConfirm = {
+            homeViewModel.deleteProduct(uid)
+            showDialog = false
+        })
     }
 
     Column(
@@ -108,10 +107,8 @@ fun ProductBox(
             Spacer(modifier = Modifier.weight(1f))
 
             if (isAdmin) {
-                MenuIcon(
-                    modifier = Modifier.padding(end = 24.dp, top = 16.dp),
-                    onClick = { showDialog = true }
-                )
+                MenuIcon(modifier = Modifier.padding(end = 24.dp, top = 16.dp),
+                    onClick = { showDialog = true })
             }
         }
 
@@ -136,8 +133,7 @@ fun MenuIcon(onClick: () -> Unit, modifier: Modifier = Modifier) {
         modifier = modifier
             .size(25.dp)
             .clickable(
-                onClick = onClick,
-                role = Role.Button
+                onClick = onClick, role = Role.Button
             )
     )
 }
@@ -145,25 +141,20 @@ fun MenuIcon(onClick: () -> Unit, modifier: Modifier = Modifier) {
 @Composable
 fun CheckDeleteDialog(onConfirm: () -> Unit, onDismiss: () -> Unit) {
 
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        confirmButton = {
-            TextButton(onClick = {
-                onConfirm()
-            }) {
-                Text("확인", color = Color.Black, fontSize = 16.sp)
-            }
-        },
-        dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text("취소", color = Color.Gray, fontSize = 16.sp)
-            }
-        },
-        title = {
-            Text("정말 이 상품을\n삭제하시겠어요?", fontSize = 18.sp, color= Color.Black)
-        },
-        modifier = Modifier
-            .padding(16.dp)
-            .background(Color.White, RoundedCornerShape(20.dp))
+    AlertDialog(onDismissRequest = onDismiss, confirmButton = {
+        TextButton(onClick = {
+            onConfirm()
+        }) {
+            Text("확인", color = Color.Black, fontSize = 16.sp)
+        }
+    }, dismissButton = {
+        TextButton(onClick = onDismiss) {
+            Text("취소", color = Color.Gray, fontSize = 16.sp)
+        }
+    }, title = {
+        Text("정말 이 상품을\n삭제하시겠어요?", fontSize = 18.sp, color = Color.Black)
+    }, modifier = Modifier
+        .padding(16.dp)
+        .background(Color.White, RoundedCornerShape(20.dp))
     )
 }

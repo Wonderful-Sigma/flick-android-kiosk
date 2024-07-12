@@ -109,8 +109,7 @@ fun CreateProductScreen(
                     modifier = Modifier
                         .background(Color(0xFFF2F3F4), RoundedCornerShape(30.dp))
                         .size(252.dp),
-                    contentDescription = "",
-
+                    contentDescription = ""
                     )
             }
         }

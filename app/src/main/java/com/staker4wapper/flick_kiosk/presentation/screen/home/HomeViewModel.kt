@@ -20,17 +20,18 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import newjeans.bunnies.data.DataManager
 import newjeans.bunnies.main.state.CreateProductState
 import okhttp3.Dispatcher
 import java.io.ByteArrayOutputStream
 import javax.inject.Inject
 
 
-
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val provideAppDao: ProductDao
+    private val provideAppDao: ProductDao,
 ) : ViewModel() {
 
     init {
@@ -44,6 +45,21 @@ class HomeViewModel @Inject constructor(
 
     private val _state = MutableLiveData<Boolean>()
     val state: LiveData<Boolean> = _state
+
+    private val _coin = MutableLiveData<Int>()
+    val coin: LiveData<Int> = _coin
+
+
+    fun getCoin(dataManager: DataManager) {
+        viewModelScope.launch {
+            val coin = dataManager.getCoin().first()
+            if(coin.isNotEmpty()){
+                _coin.value = coin.toInt()
+            } else {
+                _coin.value = 0
+            }
+        }
+    }
 
     fun getAllProducts() = viewModelScope.launch {
         kotlin.runCatching {
@@ -78,7 +94,7 @@ class HomeViewModel @Inject constructor(
         }
 
     fun bitmapToByteArray(bitmap: Bitmap?): ByteArray? {
-        if(bitmap == null) {
+        if (bitmap == null) {
             Log.d(TAG, "null")
             return null
         }
@@ -96,7 +112,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun setImageBitmap(uri: Uri?, contentResolver: ContentResolver): Bitmap? {
-        if(uri == null) return null
+        if (uri == null) return null
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) ImageDecoder.decodeBitmap(
             ImageDecoder.createSource(contentResolver, uri)
         ) else MediaStore.Images.Media.getBitmap(contentResolver, uri)

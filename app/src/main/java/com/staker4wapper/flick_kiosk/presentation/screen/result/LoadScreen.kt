@@ -34,12 +34,14 @@ import com.staker4wapper.flick_kiosk.presentation.ui.theme.Gray
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.StateColor
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.TitleLarge
 import kotlinx.coroutines.delay
+import newjeans.bunnies.data.DataManager
 
 @Composable
 fun LoadScreen(
     navController: NavController,
     sendUserId: String,
     productPrice: String,
+    dataManager: DataManager,
     qrViewModel: QRViewModel = hiltViewModel(),
 ) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.animation_load2))
@@ -69,7 +71,7 @@ fun LoadScreen(
 //            PaymentRequest(listOf(9), sendUserId.toLong(), listOf(2))
 //        )
         qrViewModel.remit(
-            RemitRequest(sendUserId.toInt(), productPrice.toLong(), 5)
+            RemitRequest(sendUserId.toInt(), productPrice.toLong(), 191), dataManager
         )
         qrViewModel.remitState.collect {
             if (it.isSuccess) {

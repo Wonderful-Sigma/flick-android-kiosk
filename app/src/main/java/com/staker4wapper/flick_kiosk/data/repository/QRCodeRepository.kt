@@ -11,6 +11,7 @@ import javax.inject.Inject
 class QRCodeRepository @Inject constructor(
     private val qrCodeApi: QRCodeApi
 ) {
+
     suspend fun decodingQrCode(jwt: String): QrDecodingResponse =
         qrCodeApi.decodingQrCode(jwt)
 

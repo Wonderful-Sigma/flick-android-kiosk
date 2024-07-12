@@ -27,6 +27,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -50,12 +51,17 @@ import com.staker4wapper.flick_kiosk.presentation.ui.theme.Gray.gray100
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.Gray.gray400
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.SubTitleLarge
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.TitleLarge
+import com.staker4wapper.flick_kiosk.presentation.utils.Patten.toCommaString
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import newjeans.bunnies.data.DataManager
 
 const val PASSWORD = "1234" // TODO : 비밀번호 수정하기
 
 @Composable
 fun HomeScreen(
-    navController: NavController, homeViewModel: HomeViewModel
+    navController: NavController, homeViewModel: HomeViewModel,dataManager: DataManager
 ) {
     val productList = homeViewModel.productList.observeAsState()
     val scrollState = rememberLazyListState()
@@ -63,6 +69,10 @@ fun HomeScreen(
     val isAdmin = homeViewModel.state.observeAsState(false)
 
     var showDialog by remember { mutableStateOf(false) }
+
+    var coin = homeViewModel.coin.observeAsState(0)
+
+    val coroutineScope: CoroutineScope = rememberCoroutineScope()
 
 
     if (showDialog) {
@@ -84,10 +94,16 @@ fun HomeScreen(
                 .height(80.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (isAdmin.value) { SubTitleLarge(text = "총 결재된 금액 : 1,000대소코인", color = gray400) }
+            if (isAdmin.value) {
+                SubTitleLarge(
+                    text = "총 결재된 금액 : ${coin.value.toCommaString()}대소코인",
+                    color = gray400
+                )
+            }
             Spacer(modifier = Modifier.weight(1F))
             Row(modifier = Modifier
                 .clickable {
+                    homeViewModel.getCoin(dataManager)
                     // TODO : 상태가 클라이언트 상태일 때만 (false)
                     if (homeViewModel.state.value == null || homeViewModel.state.value == false) {
                         showDialog = true
@@ -145,20 +161,25 @@ fun HomeScreen(
             }
             item {
                 productList.value?.let {
-                    SnackList(navController = navController, productList = it, isAdmin.value)
+                    SnackList(
+                        navController = navController,
+                        productList = it,
+                        isAdmin.value,
+                        homeViewModel
+                    )
                 }
             }
         }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    val navController = rememberNavController()
-    val homeViewModel: HomeViewModel = hiltViewModel()
-    HomeScreen(navController, homeViewModel)
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun GreetingPreview() {
+//    val navController = rememberNavController()
+//    val homeViewModel: HomeViewModel = hiltViewModel()
+//    HomeScreen(navController, homeViewModel, )
+//}
 
 @Composable
 fun AdminPasswordDialog(onConfirm: () -> Unit, onDismiss: () -> Unit) {
@@ -184,7 +205,7 @@ fun AdminPasswordDialog(onConfirm: () -> Unit, onDismiss: () -> Unit) {
             }
         },
         title = {
-            Text("어드민으로 변경하기 위해\n비밀번호를 입력해주세요", fontSize = 18.sp, color= Color.Black)
+            Text("어드민으로 변경하기 위해\n비밀번호를 입력해주세요", fontSize = 18.sp, color = Color.Black)
         },
         text = {
             OutlinedTextField(

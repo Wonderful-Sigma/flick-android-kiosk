@@ -12,7 +12,12 @@ import io.woong.compose.grid.SimpleGridCells
 import io.woong.compose.grid.VerticalGrid
 
 @Composable
-fun SnackList(navController: NavController, productList: List<Product>, isAdmin: Boolean) {
+fun SnackList(
+    navController: NavController,
+    productList: List<Product>,
+    isAdmin: Boolean,
+    homeViewModel: HomeViewModel
+) {
 
     VerticalGrid(
         modifier = Modifier.padding(horizontal = 33.dp),
@@ -20,10 +25,12 @@ fun SnackList(navController: NavController, productList: List<Product>, isAdmin:
     ) {
         for (product in productList) {
             ProductBox(
+                uid = product.uid,
                 image = product.image,
                 price = product.price,
                 name = product.name,
-                isAdmin = isAdmin
+                isAdmin = isAdmin,
+                homeViewModel = homeViewModel
             ) {
                 navController.navigate(
                     Screen.QRCode.route

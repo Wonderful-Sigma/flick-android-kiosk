@@ -13,18 +13,19 @@ import com.staker4wapper.flick_kiosk.presentation.screen.qrcode.QRCodeScreen
 import com.staker4wapper.flick_kiosk.presentation.screen.result.FailedScreen
 import com.staker4wapper.flick_kiosk.presentation.screen.result.LoadScreen
 import com.staker4wapper.flick_kiosk.presentation.screen.result.SuccessScreen
+import newjeans.bunnies.data.DataManager
 
 @Composable
 fun NavGraph(
-    navController: NavHostController, homeViewModel: HomeViewModel
+    navController: NavHostController, homeViewModel: HomeViewModel, dataManager: DataManager
 ) {
     NavHost(
         navController = navController, startDestination = Screen.Home.route
     ) {
         composable(route = Screen.Home.route) {
-            HomeScreen(navController = navController, homeViewModel)
+            HomeScreen(navController = navController, homeViewModel, dataManager)
         }
-        composable(route = Screen.Create.route){
+        composable(route = Screen.Create.route) {
             CreateProductScreen(navController = navController, homeViewModel = homeViewModel)
         }
         composable(route = Screen.QRCode.route, enterTransition = {
@@ -42,6 +43,7 @@ fun NavGraph(
                     AnimatedContentTransitionScope.SlideDirection.Right,
                     animationSpec = tween(500)
                 )
+
                 else -> null
             }
         }) { backStackEntry ->
@@ -75,7 +77,7 @@ fun NavGraph(
             val sendUserId = backStackEntry.arguments?.getString("user_id")
 
             if (productPrice != null && sendUserId != null) {
-                LoadScreen(navController, sendUserId, productPrice)
+                LoadScreen(navController, sendUserId, productPrice, dataManager)
             }
         }
         composable(

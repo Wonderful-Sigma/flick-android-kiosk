@@ -16,9 +16,14 @@ import com.staker4wapper.flick_kiosk.presentation.screen.home.HomeViewModel
 import com.staker4wapper.flick_kiosk.presentation.navigation.NavGraph
 import com.staker4wapper.flick_kiosk.presentation.ui.theme.Flick_KioskTheme
 import dagger.hilt.android.AndroidEntryPoint
+import newjeans.bunnies.data.DataManager
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var dataManager: DataManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +33,7 @@ class MainActivity : ComponentActivity() {
                 val homeViewModel: HomeViewModel = hiltViewModel()
                 homeViewModel.getAllProducts()
                 val navController = rememberNavController()
-                NavGraph(navController = navController, homeViewModel)
+                NavGraph(navController = navController, homeViewModel, dataManager)
             }
         }
     }
